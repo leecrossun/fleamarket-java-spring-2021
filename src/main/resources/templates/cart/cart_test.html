@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>USER</title>
+<script type="text/javascript">
+	function closeThis(url) {
+		opener.document.location.href = url;
+		self.close();
+	}
+</script>
+
+<style type="text/css">
+#priorList {
+	padding: 10px 0;
+	margin: auto;
+	width: 90%;
+	text-align: center;
+}
+
+#priorList table {
+	margin: auto;
+	border-collapse: separate;
+	border-spacing: 1px;
+	text-align: center;
+	line-height: 1.5;
+	border-top: 1px solid #ccc;
+	padding-top: 10px;
+	align: center;
+	width: 70%;
+	border: 0;
+	border-collapse: collapse;
+}
+
+#priorList table th {
+	border-bottom: 2px solid #999;
+	padding: 10px;
+}
+
+#priorList table .listId {
+	width: 30%;
+}
+
+#priorList table .name .price .quantity .total{
+	width: 70%;
+}
+
+#priorList table td {
+	border-bottom: 1px solid #ccc;
+	padding: 10px;
+}
+
+#priorList table td a {
+	color: black;
+	text-decoration: none;
+}
+
+#priorList table td a:hover {
+	color: #47c9af;
+}
+</style>
+</head>
+<body>
+	<div id='priorList'
+		th:if="${not #lists.isEmpty(list) && list != null }">
+		
+		<table>
+			<thead>
+				<tr>
+					<!-- <th class="listId">CommonId</th> -->
+					<th class="name">상품 이름</th>
+					<th class="price">가격</th>
+					<th class="quantity">수량</th>
+					<th class="total">총 금액</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="product, index : ${list}">
+					<td><a th:href="@{/product/read(productId=${product.productName})}"
+						th:text="${product.productName}"></a></td>
+					<td><a th:href="@{/product/read(productId=${product.price})}" 
+						th:text="${product.price}"></a></td>
+					<td><a th:href="@{/product/read(productId=${product.quantity})}" 
+						th:text="${product.quantity}"></a></td>
+					<td><a th:href="@{/product/read(productId=${product.total})}" 
+						th:text="${total}"></a></td>		
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+<html lang="UTF-8" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Product</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="../../static/images/icons/favicon.png" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/slick/slick.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/MagnificPopup/magnific-popup.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../../static/css/util.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+<!--===============================================================================================-->
+
+<style>
+.title {
+	text-align: center;
+	margin: 30px;
+}
+
+th, td {
+	font-size: 15px;
+	border-collapse: collapse;
+	padding: 10px; margin : 10px;
+	box-shadow: 1px 1px solid black;
+	margin: 10px
+}
+
+
+.submit_btn {
+	margin-top: 3%;
+	background-color: #E2E2E2 !important;
+	color: black !important;
+}
+
+.submit_btn:hover {
+	border: 1px solid black !important;
+}
+
+table {  border-spacing: 100px 5px;
+  border-collapse: separate;
+}
+
+</style>
+</head>
+
+<body class="animsition">
+	<div th:replace="/menu :: header"></div>
+	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+
+						<div class="p-t-33"></div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="bor10 m-t-50 p-t-43 p-b-40">
+				<div class="tab01">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item p-b-10">Order</li>
+					</ul>
+					<div class="tab-content p-t-43" align='center'>
+
+						<form th:action="@{/order/create}" method="post"
+							th:object="${order}">
+							<div class="tab-pane fade show active" id="description"
+								role="tabpanel">
+
+								<div class="how-pos2 p-lr-15-md">
+
+									<!-- Product -->
+									<div class="flex-w flex-r-m p-b-10">
+										<div class="size-203 flex-c-m respon6">Product</div>
+
+										<div class="size-204 respon6-next"
+											th:each="i, index : ${order.item}">
+											<div class="rs1-select2 bor8 bg0">
+												<table>
+													<tr>
+														<td>주문번호</td>
+														<td><p th:text="${i.product.productName}"></p></td>
+													</tr>
+													<tr>
+														<td>Price</td>
+														<td><p th:text="${i.product.price}"></p></td>
+													</tr>
+													<tr>
+														<td>Quantity</td>
+														<td><p th:text="${i.quantity}"></p></td>
+													</tr>
+													<tr>
+														<td>Delivery Fee</td>
+														<td><p th:text="${i.product.delivery}"></p></td>
+													</tr>
+													<tr>
+														<td>Unit Cost</td>
+														<td><p th:text="${i.unitcost}"></p></td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+
+									<!-- 판매자 (name, num, add) -->
+									<div class="flex-w flex-r-m p-b-10" th:if="${type} != 2">
+										<div class="size-203 flex-c-m respon6">Seller</div>
+
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<table>
+													<tr>
+														<td>Name</td>
+														<td><input type="text"
+															th:field="*{supplier.userName}" /></td>
+													</tr>
+													<tr>
+														<td>Number</td>
+														<td><input type="text" th:field="*{supplier.phone}" /></td>
+													</tr>
+												</table>
+											</div>
+
+										</div>
+									</div>
+
+									<!-- 구매자 (name, num, add) -->
+									<div class="flex-w flex-r-m p-b-10" th:if="${type} != 2">
+										<div class="size-203 flex-c-m respon6">Buyer</div>
+
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<table>
+													<tr>
+														<td>Name</td>
+														<td><input type="text" th:field="*{buyer.userName}"
+															id="buyerName" /></td>
+													</tr>
+													<tr>
+														<td>Number</td>
+														<td><input type="text" th:field="*{buyer.phone}"
+															id="buyerPhone" /> <input type="hidden" th:field="*{buyer.address}"
+														id="buyerAddress" /></td>
+													</tr>
+													<tr>
+														<td>Bank</td>
+														<td><input type="text" th:field="*{buyer.bank}" /></td>
+													</tr>
+													<tr>
+														<td>Account</td>
+														<td><input type="text" th:field="*{buyer.account}" /></td>
+													</tr>
+													<tr>
+														<td>Account Name</td>
+														<td><input type="text" th:field="*{buyer.accName}" /></td>
+													</tr>
+
+												</table>
+											</div>
+
+										</div>
+									</div>
+
+									<!-- 수령자 (name, num, add) -->
+									<div class="flex-w flex-r-m p-b-10" th:if="${type} != 2">
+										<div class="size-203 flex-c-m respon6">Receiver</div>
+
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<table>
+													<tr>
+														<td>본인 정보로 하기</td>
+														<td><input type="checkbox" id="info" name="info" /></td>
+													</tr>
+													<tr>
+														<td>Name</td>
+														<td><input type="text" th:field="*{billName}"
+															id="billName" placeholder="수령인의 이름을 입력하세요" /></td>
+													</tr>
+													<tr>
+														<td>Number</td>
+														<td><input type="text" th:field="*{billPhone}"
+															id="billPhone" placeholder="수령인의 전화번호를 입력하세요" /></td>
+													</tr>
+													<tr>
+														<td>Address</td>
+														<td><input type="text" th:field="*{billAddress}"
+															id="billAddress" placeholder="배송지를 입력하세요" /></td>
+													</tr>
+												</table>
+											</div>
+
+										</div>
+									</div>
+
+
+									<!-- TotalPrice / PaymentType / Courier / -->
+									<div class="flex-w flex-r-m p-b-10" th:if="${type} != 2">
+										<div class="size-203 flex-c-m respon6">Info</div>
+
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<table>
+													<tr>
+														<td>Total Price</td>
+														<td><input type="text" th:field="*{totalPrice}"
+															disabled /></td>
+													</tr>
+												</table>
+											</div>
+
+										</div>
+									</div>
+
+									<div class="flex-w flex-r-m p-b-10">
+										<input type="submit"
+											class="submit_btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+											value="submit" />
+									</div>
+
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top"> <i
+			class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+	<!-- Modal1 -->
+	<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+		<div class="overlay-modal1 js-hide-modal1"></div>
+
+		<div class="container">
+			<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+				<button class="how-pos3 hov3 trans-04 js-hide-modal1">
+					<img src="../../static/images/icons/icon-close.png" alt="CLOSE">
+				</button>
+
+				<div class="row">
+					<div class="col-md-6 col-lg-7 p-b-30">
+						<div class="p-l-25 p-r-30 p-lr-0-lg">
+							<div class="wrap-slick3 flex-sb flex-w">
+								<div class="wrap-slick3-dots"></div>
+								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+								<div class="slick3 gallery-lb">
+									<div class="item-slick3"
+										data-thumb="../../static/images/product-detail-01.jpg">
+										<div class="wrap-pic-w pos-relative">
+											<img src="../../static/images/product-detail-01.jpg"
+												alt="IMG-PRODUCT"> <a
+												class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+												href="../../static/images/product-detail-01.jpg"> <i
+												class="fa fa-expand"></i>
+											</a>
+										</div>
+									</div>
+
+									<div class="item-slick3"
+										data-thumb="../../static/images/product-detail-02.jpg">
+										<div class="wrap-pic-w pos-relative">
+											<img src="../../static/images/product-detail-02.jpg"
+												alt="IMG-PRODUCT"> <a
+												class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+												href="../../static/images/product-detail-02.jpg"> <i
+												class="fa fa-expand"></i>
+											</a>
+										</div>
+									</div>
+
+									<div class="item-slick3"
+										data-thumb="../../static/images/product-detail-03.jpg">
+										<div class="wrap-pic-w pos-relative">
+											<img src="../../static/images/product-detail-03.jpg"
+												alt="IMG-PRODUCT"> <a
+												class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04"
+												href="../../static/images/product-detail-03.jpg"> <i
+												class="fa fa-expand"></i>
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6 col-lg-5 p-b-30">
+						<div class="p-r-50 p-t-5 p-lr-0-lg">
+							<h4 class="mtext-105 cl2 js-name-detail p-b-14">Lightweight
+								Jacket</h4>
+
+							<span class="mtext-106 cl2"> $58.79 </span>
+
+							<p class="stext-102 cl3 p-t-23">Nulla eget sem vitae eros
+								pharetra viverra. Nam vitae luctus ligula. Mauris consequat
+								ornare feugiat.</p>
+
+							<!--  -->
+							<div class="p-t-33">
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-203 flex-c-m respon6">Size</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<select class="js-select2" name="time">
+												<option>Choose an option</option>
+												<option>Size S</option>
+												<option>Size M</option>
+												<option>Size L</option>
+												<option>Size XL</option>
+											</select>
+											<div class="dropDownSelect2"></div>
+										</div>
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-203 flex-c-m respon6">Color</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<select class="js-select2" name="time">
+												<option>Choose an option</option>
+												<option>Red</option>
+												<option>Blue</option>
+												<option>White</option>
+												<option>Grey</option>
+											</select>
+											<div class="dropDownSelect2"></div>
+										</div>
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10">
+									<div class="size-204 flex-w flex-m respon6-next">
+										<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+											<div
+												class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-minus"></i>
+											</div>
+
+											<input class="mtext-104 cl3 txt-center num-product"
+												type="number" name="num-product" value="1">
+
+											<div
+												class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+												<i class="fs-16 zmdi zmdi-plus"></i>
+											</div>
+										</div>
+
+										<button
+											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+											Add to cart</button>
+									</div>
+								</div>
+							</div>
+
+							<!--  -->
+							<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+								<div class="flex-m bor9 p-r-10 m-r-11">
+									<a href="#"
+										class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
+										data-tooltip="Add to Wishlist"> <i
+										class="zmdi zmdi-favorite"></i>
+									</a>
+								</div>
+
+								<a href="#"
+									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+									data-tooltip="Facebook"> <i class="fa fa-facebook"></i>
+								</a> <a href="#"
+									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+									data-tooltip="Twitter"> <i class="fa fa-twitter"></i>
+								</a> <a href="#"
+									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100"
+									data-tooltip="Google Plus"> <i class="fa fa-google-plus"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+	<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function() {
+			$(this).select2({
+				minimumResultsForSearch : 20,
+				dropdownParent : $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/slick/slick.min.js"></script>
+	<script src="../../static/js/slick-custom.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/parallax100/parallax100.js"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<script
+		src="../../static/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+				delegate : 'a', // the selector for gallery item
+				type : 'image',
+				gallery : {
+					enabled : true
+				},
+				mainClass : 'mfp-fade'
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/isotope/isotope.pkgd.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(
+				function() {
+					var nameProduct = $(this).parent().parent().find(
+							'.js-name-b2').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-b2');
+						$(this).off('click');
+					});
+				});
+
+		$('.js-addwish-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent().find(
+							'.js-name-detail').html();
+
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-detail');
+						$(this).off('click');
+					});
+				});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent()
+							.parent().find('.js-name-detail').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to cart !", "success");
+					});
+				});
+	</script>
+	<!--===============================================================================================-->
+	<script
+		src="../../static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
+
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="../../static/js/main.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#info").change(function() {
+				if ($("#info").is(":checked")) {
+					$("#billName").val($('#buyerName').val());
+					$("#billPhone").val($('#buyerPhone').val());
+					$("#billAddress").val($('#buyerAddress').val());
+
+				} else {
+					$("#billName").val('');
+					$("#billPhone").val('');
+					$("#billAddress").val('');
+
+				}
+			});
+		});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>Yanado</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+
+     	function myFunction(x){
+     		var title = String(String(x.rowIndex+1)+"title");
+     		var category = String(String(x.rowIndex+1)+"categry");
+     		var price = String(String(x.rowIndex+1)+"price");
+
+      	  
+
+	      	opener.document.getElementById("productName").value = document.getElementById(title).innerHTML.replace(/(<([^>]+)>)/ig,"");
+
+	      	//opener.document.getElementById("productName").value = document.getElementById(category).innerHTML;
+	      	opener.document.getElementById("price").value = document.getElementById(price).innerHTML;
+
+     	}
+   </script>
+   <style>
+   table{
+   border-collapse:collapse;
+   }
+   tr:hover {
+   border:1px solid black;
+   background-color:lightgrey;
+   }
+   </style>
+</head>
+<body>
+ 	<table id="event">
+		<th>상품명</th><th>분류</th><th>가격</th><th>이미지</th>
+		<tr th:if="${not #lists.isEmpty(result) && result != null }"
+			th:each="r, i : ${result}" onclick="myFunction(this)">
+			<td th:id="|${i.count}title|" th:utext="${r.title}"></td>
+			<td tha;id="|${i.count}category|" th:utext="${r.category2}"></td>
+			<td th:id="|${i.count}price|" th:utext="${r.lprice}"></td>
+			<td><img th:id="|${i.count}image|" th:src="@{${r.image}}" style="width:70px"/></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head xmlns:th="http://www.thymeleaf.org">
+<title>shopping Detail</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="../../static/images/icons/favicon.png" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/slick/slick.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/MagnificPopup/magnific-popup.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../../static/css/util.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+<!--===============================================================================================-->
+<style>
+th, td {
+	font-size: 20px;
+	text-align: center;
+	border-collapse: collapse;
+	border: none;
+	padding: 10px;
+	margin: 10px;
+	box-shadow: 1px 1px solid black;
+}
+
+.submit_btn {
+	margin-top: 3%;
+	background-color: #E2E2E2 !important;
+	color: black !important;
+}
+
+.submit_btn:hover {
+	border: 1px solid black !important;
+}
+</style>
+</head>
+<body class="animsition">
+	<div th:replace="/menu :: header"></div>
+	<!-- Product Detail -->
+	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-7 p-b-30">
+					<div class="p-l-25 p-r-30 p-lr-0-lg">
+						<div class="wrap-slick3 flex-sb flex-w">
+							<div class="slick3 gallery-lb">
+
+								<div class="item-slick3">
+									<div class="wrap-pic-w pos-relative">
+										<img src="../../static/images/test.png" alt="IMG-PRODUCT">
+										<!-- 
+											th:src="@{../{img}(img=${shopping.image.image})}"> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+						<h4 class="mtext-105 cl2 js-name-detail p-b-14"
+							th:text="${shopping.productName}"></h4>
+
+						<span class="mtext-106 cl2" th:text="${shopping.price} + ' 원'">
+						</span>
+
+
+						<div class="p-t-33">
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-203 flex-c-m respon6">Status</div>
+
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+										<p style="margin: 1em;" align='center'
+											th:switch="${shopping.stock}">
+											<span th:case="0">매진</span> <span th:case="*">판매 중 </span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="p-t-33">
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-203 flex-c-m respon6">Stock</div>
+
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+										<p style="margin: 1em;" align='center'>
+											<span th:text="${shopping.stock}">0</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="p-t-33">
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-203 flex-c-m respon6">Seller</div>
+
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+										<p style="margin: 1em;" align='center'>
+											<span th:text="${shopping.supplierId}">판매자없음</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="p-t-33" th:if="${session.userId != null} and ${shopping.stock != 0}">
+							<div class="flex-w flex-r-m p-b-10">
+								<div class="size-203 flex-c-m respon6">Quantity</div>
+								<div class="size-204 respon6-next">
+									<div class="rs1-select2 bor8 bg0">
+										<div style="margin: 1em; margin: 10px auto;" align='center'>
+											<form th:action="@{/order/create}" method="get">
+												<input type="number" th:name="quentity" placeholder="수량 선택" style="width: 100%; text-align: center;"
+													th:max="${shopping.stock}" th:min="1" /> <input
+													type="hidden" th:name="productId"
+													th:value="${shopping.productId}" />
+										</div>
+									</div>
+								</div>
+
+								<input type="submit"
+									class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 submit_btn"
+									style="margin: 3%" value="Buy Product" />
+
+								</form>
+								<button
+									class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 submit_btn"
+									style="margin: 3%">
+									<a style="color: black;"
+										th:href='@{/cart/add(shoppingId=${shopping.productId})}'>Add
+										to Cart</a>
+								</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="bor10 m-t-50 p-t-43 p-b-40">
+				<!-- Tab01 -->
+				<div class="tab01">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item p-b-10"><a class="nav-link active"
+							data-toggle="tab" href="#description" role="tab">Description</a>
+						</li>
+
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content p-t-43">
+						<!-- - -->
+						<div class="tab-pane fade show active" id="description"
+							role="tabpanel">
+							<div class="how-pos2 p-lr-15-md" align="center">
+								<p class="stext-102 cl6" th:text="${shopping.content}"></p>
+							</div>
+						</div>
+
+						<!-- - -->
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="flex-w flex-c-m m-tb-10"
+					th:if="${shopping.supplierId} == ${session.userId}">
+					<button
+						class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4  submit_btn"
+						style="margin: 3%">
+						<a style="color: black;"
+							th:href='@{/shopping/update(shoppingId=${shopping.productId})}'>수정</a>
+					</button>
+					<button
+						class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4  submit_btn"
+						style="margin: 3%">
+						<a style="color: black;"
+							th:href='@{/shopping/delete(shoppingId=${shopping.productId})}'>삭제</a>
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top"> <i
+			class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+	<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function() {
+			$(this).select2({
+				minimumResultsForSearch : 20,
+				dropdownParent : $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/slick/slick.min.js"></script>
+	<script src="../../static/js/slick-custom.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/parallax100/parallax100.js"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<script
+		src="../../static/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script>
+		$('.gallery-lb').each(function() { // the containers for all your galleries
+			$(this).magnificPopup({
+				delegate : 'a', // the selector for gallery item
+				type : 'image',
+				gallery : {
+					enabled : true
+				},
+				mainClass : 'mfp-fade'
+			});
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/isotope/isotope.pkgd.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+		$('.js-addwish-b2, .js-addwish-detail').on('click', function(e) {
+			e.preventDefault();
+		});
+
+		$('.js-addwish-b2').each(
+				function() {
+					var nameProduct = $(this).parent().parent().find(
+							'.js-name-b2').html();
+					$(this).on('click', function() {
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						$(this).addClass('js-addedwish-b2');
+						$(this).off('click');
+					});
+				});
+
+		$('.js-addwish-detail').each(
+				function() {
+					var nameProduct = $(this).parent().parent().parent().find(
+							'.js-name-detail').html();
+
+					$(this).on('click', function() {
+
+						swal(nameProduct, "is added to wishlist !", "success");
+
+						if (swal.close()) {
+							$(this).addClass('js-addedwish-detail');
+							$(this).off('click');
+						}
+					});
+				});
+
+		/*---------------------------------------------*/
+
+		$('.js-join-shopping')
+				.each(
+						function() {
+
+							var nameProduct = $(this).parent().parent()
+									.parent().parent().find('.js-name-detail')
+									.html();
+							$(this)
+									.on(
+											'click',
+											function() {
+
+												swal(nameProduct,
+														"is joined shopping !",
+														"success");
+
+												location.href = "[[@{/shopping/join(shoppingId=${shopping.productId})}]]";
+
+											});
+						});
+
+		$('.js-cancel-shopping')
+				.each(
+						function() {
+
+							var nameProduct = $(this).parent().parent()
+									.parent().parent().find('.js-name-detail')
+									.html();
+							$(this)
+									.on(
+											'click',
+											function() {
+
+												swal(
+														nameProduct,
+														"is canceled shopping !",
+														"success");
+
+												location.href = "[[@{/shopping/cancel(shoppingId=${shopping.productId})}]]";
+
+											});
+						});
+	</script>
+	<!--===============================================================================================-->
+	<script
+		src="../../static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
+
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="../../static/js/main.js"></script>
+</body>
+</html>

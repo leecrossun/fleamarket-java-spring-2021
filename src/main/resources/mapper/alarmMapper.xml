@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yanado.dao.AlarmDAO">
+	<!-- alarm table -->
+
+	<sql id="alarmColumns">
+		alarmId,
+		userId,
+		commonId,
+		aucId,
+		type,
+		price,
+		message,
+		sendDate,
+		deadline
+	</sql>
+
+	<!-- sequence 이름 alarm_seq -->
+	<!-- alarm 생성 -->
+	<insert id="insertAlarm" parameterType="com.yanado.dto.Alarm">
+		<selectKey keyProperty="alarmId"
+			resultType="java.lang.String" order="BEFORE">
+			SELECT
+			alarm_seq.nextval From DUAL
+		</selectKey>
+
+		INSERT INTO alarm(
+		<include refid="alarmColumns" />
+		) VALUES ( #{alarmId}, #{userId, jdbcType=VARCHAR}, #{commonId, jdbcType=VARCHAR},
+		#{aucId, jdbcType=VARCHAR}, #{type}, #{price}, #{message},
+		SYSDATE,
+		#{deadline, jdbcType=DATE}
+		)
+	</insert>
+	
+	<delete id="deleteAllCommonAlarm" parameterType="String">
+		delete from alarm where commonId = #{commonId}
+	</delete>
+	
+	<delete id="deleteAllAucAlarm" parameterType="String">
+		delete from alarm where aucId = #{aucId}
+	</delete>
+
+	<!-- alarm 읽기 -->
+	<select id="findAlarmByAlarmId" parameterType="String"
+		resultType="com.yanado.dto.Alarm">
+		select * from alarm where alarmId = #{alarmId}
+	</select>
+
+	<!-- common alarm 찾기 -->
+	<select id="findAlarmByCommonId" parameterType="String"
+		resultType="com.yanado.dto.Alarm">
+		select * from alarm where commonId = #{commonId} and userId is null
+	</select>
+
+	<!-- auction alarm 찾기 -->
+	<select id="findAlarmByAucId" parameterType="String"
+		resultType="com.yanado.dto.Alarm">
+		select * from alarm where aucId = #{aucId}
+	</select>
+
+	<!-- MyPage 관련 alarm -->
+	<select id="findAllAlarmByUserId" parameterType="String"
+		resultType="com.yanado.dto.Alarm">
+		select * from alarm where userId = #{userId}
+	</select>
+</mapper>

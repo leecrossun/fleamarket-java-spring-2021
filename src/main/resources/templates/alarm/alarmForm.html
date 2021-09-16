@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Alarm Form</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="../../static/images/icons/favicon.png" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/slick/slick.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/MagnificPopup/magnific-popup.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../../static/css/util.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+<!--===============================================================================================-->
+
+</head>
+<body class="animsition">
+	<div th:replace="/menu :: header"></div>
+	<!-- Product Detail -->
+	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+
+						<div class="p-t-33"></div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="bor10 m-t-50 p-t-43 p-b-40">
+				<!-- Tab01 -->
+				<div class="tab01">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item p-b-10">Alarm From</li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content p-t-43" align='center'>
+
+						<form th:action="@{/alarm/create}" th:object="${alarm}"
+							method="post">
+
+							<input type="hidden" name="alarmId" th:field="*{alarmId}">
+
+							<!-- - -->
+							<div class="tab-pane fade show active" id="description"
+								role="tabpanel">
+
+								<div class="how-pos2 p-lr-15-md">
+
+									<div class="flex-w flex-r-m p-b-10" th:if="${alarm.commonId != null}">
+										<div class="size-203 flex-c-m respon6">CommonId</div>
+
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<input type="text" name="commonId" th:field="*{commonId}"
+													style="padding: 10px; text-align: center"
+													th:value="${commonId}" readOnly>
+											</div>
+
+										</div>
+									</div>
+									
+									<div class="flex-w flex-r-m p-b-10" th:if="${alarm.aucId != null}">
+										<div class="size-203 flex-c-m respon6">AucId</div>
+
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<input type="text" name="aucId" th:field="*{aucId}"
+													style="padding: 10px; text-align: center"
+													th:value="${aucId}" readOnly>
+											</div>
+
+										</div>
+									</div>
+
+
+									<div class="p-t-33">
+										<div class="flex-w flex-r-m p-b-10">
+											<div class="size-203 flex-c-m respon6">Type</div>
+
+											<div class="size-204 respon6-next">
+												<div class="rs1-select2 bor8 bg0">
+													<select th:field="*{type}" th:value="*{type}"
+														style="padding: 10px; text-align-last: center; appearance: none; border: none; text-align: center; width:100%">
+														<option th:value="0" selected>선택</option>
+														<option th:value="1">result</option>
+														<option th:value="2">note</option>
+														<option th:value="3">etc</option>
+														
+													</select>
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="p-t-33">
+										<div class="flex-w flex-r-m p-b-10">
+											<div class="size-203 flex-c-m respon6">Message</div>
+
+											<div class="size-204 respon6-next">
+												<div class="rs1-select2 bor8 bg0" style="width: 100%">
+
+													<textarea th:value="*{message}" th:field="*{message}" rows="5" cols="30" style="width: 100%"
+														th:text="*{message}"></textarea>
+
+
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="flex-w flex-r-m p-b-10">
+										<input type="submit" th:value="create"
+											class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+											style="margin-top: 3%; background-color: #E2E2E2; color: black;" />
+									</div>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top"> <i
+			class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+	<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/slick/slick.min.js"></script>
+	<script src="../../static/js/slick-custom.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/parallax100/parallax100.js"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<script
+		src="../../static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
+
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="../../static/js/main.js"></script>
+
+</body>
+</html>

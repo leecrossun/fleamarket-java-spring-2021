@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Mypage Main</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="../../static/images/icons/favicon.png" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/slick/slick.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/MagnificPopup/magnific-popup.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../../static/css/util.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+<!--===============================================================================================-->
+
+</head>
+<body class="animsition">
+	<div th:replace="/menu :: header"></div>
+	<!-- Product Detail -->
+	<section class="sec-product-detail bg0 p-t-65 p-b-60">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-6 col-lg-5 p-b-30">
+					<div class="p-r-50 p-t-5 p-lr-0-lg">
+
+						<div class="p-t-33"></div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="bor10 m-t-50 p-t-43 p-b-40">
+				<!-- Tab01 -->
+				<div class="tab01">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item p-t-10 p-b-10">Mypage</li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content p-t-43"><!-- align='center'-->
+
+						<form th:action="@{/user/mypageMain}" th:object="${mypage}"
+                            method="post">
+                            
+                            <div class="tab-pane fade show active" id="description"
+								role="tabpanel">
+                               
+								<div class="how-pos2 p-lr-15-md">
+
+                                    <ul>
+                                        <li class="bor18">
+                                            <div style="margin-inline-start: 200px;">
+                                                <a th:href="@{/user/updateInfo}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+                                                    <p style="float: left;">MYPAGE</p>
+                                                    <p style="float: left; font-size: xx-small; margin-left: 200px;">소중한 개인정보를 관리하는 공간입니다.</p>
+                                                </a>
+                                            </div>
+                                        </li>
+
+                                        <li class="bor18" th:if="${session.auth == NULL}">
+                                            <div style="margin-inline-start: 200px;">
+                                                <a th:href="@{/order/view/my}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+                                                    <p style="float: left;">ORDER LIST</p>
+                                                    <p style="float: left; font-size: xx-small; margin-left: 180px;">주문하신 상품의 주문 내역을 확인하실 수 있습니다.</p>
+                                                </a>
+                                            </div>
+                                        </li>
+        
+                                        <li class="bor18" th:if="${session.auth != NULL}">
+                                            <div style="margin-inline-start: 200px;">
+                                                <a th:href="@{/product/view/my}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+                                                    <p style="float: left;">MY SALE LIST</p>
+                                                    <p style="float: left; font-size: xx-small; margin-left: 170px;">판매 중인 물품 내역을 확인하실 수 있습니다.</p>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        
+                                         <li class="bor18" th:if="${session.auth != NULL}">
+                                            <div style="margin-inline-start: 200px;">
+                                                <a th:href="@{/product/view/my}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+                                                    <p style="float: left;">Buyer</p>
+                                                    <p style="float: left; font-size: xx-small; margin-left: 170px;">구매자들의 입금을 확인 및 수정할 수 있습니다.</p>
+                                                </a>
+                                            </div>
+                                        </li>
+
+                                        <li class="bor18">
+                                            <div style="margin-inline-start: 200px;">
+                                                <a th:href="@{/user/list/my(type=5)}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+                                                    <p style="float: left;">ALARM LIST</p>
+                                                    <p style="float: left; font-size: xx-small; margin-left: 185px;">알람 내역을 확인하실 수 있습니다.</p>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top"> <i
+			class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+	<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/slick/slick.min.js"></script>
+	<script src="../../static/js/slick-custom.js"></script>
+	<!--===============================================================================================-->
+	<script src="../../static/vendor/parallax100/parallax100.js"></script>
+	<script>
+		$('.parallax100').parallax100();
+	</script>
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<script
+		src="../../static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function() {
+			$(this).css('position', 'relative');
+			$(this).css('overflow', 'hidden');
+			var ps = new PerfectScrollbar(this, {
+				wheelSpeed : 1,
+				scrollingThreshold : 1000,
+				wheelPropagation : false,
+			});
+
+			$(window).on('resize', function() {
+				ps.update();
+			})
+		});
+	</script>
+	<!--===============================================================================================-->
+	<script src="../../static/js/main.js"></script>
+
+</body>
+</html>
