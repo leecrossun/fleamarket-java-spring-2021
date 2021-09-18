@@ -14,78 +14,92 @@ import com.yanado.dto.User;
 @Service
 public class UserDAO {
 
-	@PersistenceContext
-	public EntityManager em;
+    @PersistenceContext
+    public EntityManager em;
 
-	@Transactional
-	public int createUser(User user) {
-		try {
-			em.persist(user);
-		} catch (DataAccessException e) {
-			return 0;
-		}
+    @Transactional
+    public int createUser(User user) {
+        try {
+            em.persist(user);
+        } catch (DataAccessException e) {
+            return 0;
+        }
 
-		return 1;
-	}
+        return 1;
+    }
 
-	@Transactional
-	public int updateUser(User user) {
-		try {
-			em.merge(user);
-		} catch (DataAccessException e) {
-			return 0;
-		}
+    @Transactional
+    public int updateUser(User user) {
+        try {
+            em.merge(user);
+        } catch (DataAccessException e) {
+            return 0;
+        }
 
-		return 1;
-	}
+        return 1;
+    }
 
-	@Transactional
-	public int deleteUser(String userId) {
-		try {
-			User user = em.find(User.class, userId);
+    @Transactional
+    public int deleteUser(String userId) {
+        try {
+            User user = em.find(User.class, userId);
 
-			if (user == null)
-				return 0;
+            if (user == null)
+                return 0;
 
-			em.remove(user);
-		} catch (DataAccessException e) {
-			return 0;
-		}
+            em.remove(user);
+        } catch (DataAccessException e) {
+            return 0;
+        }
 
-		return 1;
-	}
+        return 1;
+    }
 
-	public User getUserByUserId(String userId) throws DataAccessException {
-		User result;
-		TypedQuery<User> query;
-		try {
-			query = em.createNamedQuery("getUserByUserId", User.class);
-			query.setParameter("id", userId);
-			result = (User) query.getSingleResult();
-		} catch (NoResultException ex) {
-			return null;
-		}
+    public User getUserByUserId(String userId) throws DataAccessException {
+        User result;
+        TypedQuery<User> query;
+        try {
+            query = em.createNamedQuery("getUserByUserId", User.class);
+            query.setParameter("id", userId);
+            result = (User) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	public int login(String userId, String password) throws DataAccessException {
-		User result;
-		TypedQuery<User> query;
-		try {
-			query = em.createNamedQuery("login", User.class);
-			query.setParameter("id", userId);
-			query.setParameter("password", password);
+    public User getUserByUserName(String userName) throws DataAccessException {
+        User result;
+        TypedQuery<User> query;
+        try {
+            query = em.createNamedQuery("getUserByUserName", User.class);
+            query.setParameter("userName", userName);
+            result = (User) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
 
-			result = (User) query.getSingleResult();
-		} catch (NoResultException ex) {
-			return 0;
-		}
+        return result;
+    }
 
-		if (result == null)
-			return 0;
+    public int login(String userId, String password) throws DataAccessException {
+        User result;
+        TypedQuery<User> query;
+        try {
+            query = em.createNamedQuery("login", User.class);
+            query.setParameter("id", userId);
+            query.setParameter("password", password);
 
-		return 1;
-	}
+            result = (User) query.getSingleResult();
+        } catch (NoResultException ex) {
+            return 0;
+        }
+
+        if (result == null)
+            return 0;
+
+        return 1;
+    }
 
 }

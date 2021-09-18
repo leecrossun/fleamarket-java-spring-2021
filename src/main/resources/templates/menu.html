@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head xmlns:th="http://www.thymeleaf.org">
 <meta charset="UTF-8">
 <title>Yanado</title>
@@ -68,69 +68,62 @@
 							<li><a href="#" th:href="@{/shopping/view/all}">Shopping</a>
 								<ul class="sub-menu">
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											A</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										A</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											B</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										B</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											C</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										C</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											D</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										D</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											E</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										E</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											F</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										F</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											G</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										G</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											H</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										H</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											J</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										J</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											X</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										X</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											Y</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										Y</a></li>
 									<li><a
-										th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-											Z</a></li>
+											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
+										Z</a></li>
 
 								</ul></li>
 
 							<li th:if="${session.userId != null}"><a
-								th:href="@{/user/mypageMain}">MyPage</a></li>
+									th:href="@{/user/mypageMain}">MyPage</a></li>
 						</ul>
 					</div>
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
-						<div
-							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
-							th:if="${session.userId == null}">
-
+						<div sec:authorize="!isAuthenticated()" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">
 							<a th:href="@{/user/login}" style="color: black">LogIn</a>
 						</div>
-						<div class="flex-c-m stext-106 cl6 size-105"
-							th:if="${session.userId != null}" style="margin: 10px;">
-							<p th:text="|${session['userId']} 님 환영합니다|"></p>
+						<div class="flex-c-m stext-106 cl6 size-105" sec:authorize="isAuthenticated()" style="margin: 10px;">
+							<p sec:authentication="principal.username"></p>
 						</div>
-						<div
-							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
-							th:if="${session.userId != null}">
+						<div sec:authorize="isAuthenticated()"
+							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">
 							<a th:href="@{/user/logout}" style="color: black">LogOut</a>
 						</div>
-						<div
-							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
-							th:if="${session.userId != null}" style="margin: 10px;">
-
+						<div sec:authorize="isAuthenticated()"
+							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4" style="margin: 10px;">
 							<a th:href="@{/cart/view}" style="color: black">Cart</a>
 						</div>
 
