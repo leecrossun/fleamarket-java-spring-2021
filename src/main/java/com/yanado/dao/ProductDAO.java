@@ -33,8 +33,8 @@ public class ProductDAO {
 				em.persist(image);
 			}
 		}
-		
-		System.out.println(product.getProductName());
+
+		System.out.println(product.getContent());
 
 		em.persist(product);
 	}
@@ -54,8 +54,11 @@ public class ProductDAO {
 	public void deleteProduct(String productId) throws DataAccessException {
 		Product product = em.find(Product.class, productId);
 		List<Image> images = product.getImageList();
-		for (int i = 0; i < images.size(); i++) {
-			em.remove(images.get(i));
+
+		if (images != null) {
+			for (Image i : images) {
+				em.remove(i);
+			}
 		}
 
 		em.remove(product);
@@ -143,7 +146,7 @@ public class ProductDAO {
 		Query query = em.createNamedQuery("updateStockByProductId");
 		query.setParameter("id", productId);
 		query.executeUpdate();
-		
+
 	}
 
 	// 이미지 불러오기

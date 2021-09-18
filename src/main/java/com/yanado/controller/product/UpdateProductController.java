@@ -3,6 +3,7 @@ package com.yanado.controller.product;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yanado.dao.ProductDAO;
 import com.yanado.dto.Product;
@@ -20,6 +22,7 @@ import com.yanado.service.ProductService;
 
 @Controller
 @SessionAttributes("shopping")
+
 @RequestMapping("shopping/update")
 public class UpdateProductController {
 
@@ -43,6 +46,10 @@ public class UpdateProductController {
 		Product product = shoppingDAO.getProductByProductId(shoppingId);
 
 		mav.setViewName("shopping/form");
+		
+		String s = StringEscapeUtils.unescapeHtml(product.getContent());
+		product.setContent(s);
+		
 		mav.addObject("shopping", product);
 		mav.addObject("formtype", "update");
 
@@ -61,6 +68,16 @@ public class UpdateProductController {
 		service.updateProduct(shopping);
 		
 		return "redirect:/shopping/view/detail?shoppingId=" + shopping.getProductId();
+	}
+	
+	@RequestMapping("/cancel")
+	public String cancel(@RequestParam String shoppingId, SessionStatus status, RedirectAttributes red) {
+
+		status.setComplete();
+		
+		red.addAttribute("shoppingId", shoppingId);
+
+		return "redirect:/shopping/view/detail";
 	}
 
 }

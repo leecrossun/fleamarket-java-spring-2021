@@ -45,7 +45,67 @@
 <link rel="stylesheet" type="text/css" href="../../static/css/util.css">
 <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
 <!--===============================================================================================-->
+<script type="text/javascript"
+	src="../../static/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	$(document)
+			.ready(
+					function() {
+						var oEditors = [];
 
+						nhn.husky.EZCreator
+								.createInIFrame({
+									oAppRef : oEditors,
+									elPlaceHolder : "content", //textarea ID 입력
+									sSkinURI : "../../static/smarteditor/SmartEditor2Skin.html",
+									fCreator : "createSEditor2", // SE2BasicCreator.js 메소드명이니 변경 금지 X
+									htParams : {
+										// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
+										bUseToolbar : true,
+										// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
+										bUseVerticalResizer : false,
+										// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
+										bUseModeChanger : false,
+										fOnBeforeUnload : function() {
+
+										},
+
+										fOnAppLoad : function() {
+
+										}
+									}
+								});
+
+						var type = "[[${formtype}]]";
+
+						$("#submitBtn").click(
+								function() {
+									oEditors.getById["content"].exec(
+											"UPDATE_CONTENTS_FIELD", []);
+									$("#frm").submit();
+								});
+
+						$("#cBtn")
+								.click(
+										function() {
+
+											if (type == "create") {
+												$(location)
+														.attr("href",
+																"[[@{/shopping/create/cancel}]]");
+											}
+
+											if (type == "update") {
+												$(location)
+														.attr("href",
+																"[[@{/shopping/update/cancel(shoppingId=${shopping.productId})}]]");
+											}
+
+										});
+
+					});
+</script>
 </head>
 <body class="animsition">
 	<section class="sec-product-detail bg0 p-t-65 p-b-60">
@@ -84,7 +144,7 @@
 					<!-- Tab panes -->
 					<div class="tab-content p-t-43" align='center'>
 
-						<form th:action="@{/shopping/{type}(type=${formtype})}"
+						<form th:action="@{/shopping/{type}(type=${formtype})}" id="frm"
 							th:object="${shopping}" method="post"
 							enctype="multipart/form-data">
 
@@ -104,7 +164,8 @@
 												<div class="rs1-select2 bor8 bg0">
 													<input type="text" id="productName"
 														th:field="*{cate.cateName}"
-														th:value="${shopping.cate.cateName}" readonly style="padding: 10px; text-align: center" />
+														th:value="${shopping.cate.cateName}" readonly
+														style="padding: 10px; text-align: center" />
 												</div>
 
 											</div>
@@ -181,8 +242,26 @@
 													<div class="rs1-select2 bor8 bg0" style="width: 100%">
 
 														<textarea th:value="*{content}" th:field="*{content}"
-															rows="5" cols="30" style="width: 100%"
-															th:text="*{content}"></textarea>
+															id="content" rows="10" cols="1000" style="width: 100%"
+															th:utext="*{content}"></textarea>
+														<script type="text/javascript">
+															$(document)
+																	.ready(
+																			function() {
+
+																				if ("[[${formtype}]]" == "update") {
+																					var ct = "[[${shopping.content}]]";
+																					ct = unescapeHtml(ct);
+																					alert(ct);
+																					oEditors.getById["content"]
+																							.exec(
+																									"PASTE_HTML",
+																									[ ct ]);
+																				}
+
+																			});
+														</script>
+
 													</div>
 												</div>
 											</div>
@@ -190,9 +269,13 @@
 
 
 										<div class="flex-w flex-r-m p-b-10">
-											<input type="submit" th:value="${formtype}"
+											<input type="button" th:value="${formtype}" id="submitBtn"
 												class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
 												style="margin-top: 3%; background-color: #E2E2E2; color: black;" />
+
+											<input type="button" th:value="cancel" id="cBtn"
+												class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04"
+												style="margin-top: 3%; margin-left: 3%; background-color: #E2E2E2; color: black;" />
 										</div>
 									</div>
 								</div>
@@ -211,6 +294,7 @@
 			class="zmdi zmdi-chevron-up"></i>
 		</span>
 	</div>
+
 
 	<!--===============================================================================================-->
 	<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
