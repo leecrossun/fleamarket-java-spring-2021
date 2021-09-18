@@ -16,6 +16,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NamedQueries;
@@ -51,7 +52,6 @@ public class Product implements Serializable {
 	@NotNull
 	String productName;
 
-	
 	@Column(name = "SUPPLIERID")
 	@NotNull
 	String supplierId;
@@ -61,15 +61,21 @@ public class Product implements Serializable {
 	Cate cate;
 
 	@NotNull
+	@Positive
 	int stock;
 
-	@NotNull
+	// @NotNull
 	String content;
 
+	/*
+	 * @Transient String contentString;
+	 */
 	@NotNull
+	@Positive
 	int price;
 
 	@NotNull
+	@Positive
 	int delivery;
 
 	@Temporal(TemporalType.DATE)
@@ -79,4 +85,13 @@ public class Product implements Serializable {
 	@Transient
 	@OneToMany(mappedBy = "product")
 	List<Image> imageList;
+
+	/*
+	 * public void setContentString(String contentString) { if (contentString !=
+	 * null) { this.contentString = contentString; this.content =
+	 * contentString.getBytes(); } }
+	 * 
+	 * public void setContent(byte[] content) { if (content != null) { this.content
+	 * = content; this.contentString = new String(content); } }
+	 */
 }

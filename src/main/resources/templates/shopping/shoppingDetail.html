@@ -68,6 +68,7 @@ th, td {
 	border: 1px solid black !important;
 }
 </style>
+
 </head>
 <body class="animsition">
 	<div th:replace="/menu :: header"></div>
@@ -144,14 +145,16 @@ th, td {
 							</div>
 						</div>
 
-						<div class="p-t-33" th:if="${session.userId != null} and ${shopping.stock != 0}">
+						<div class="p-t-33"
+							th:if="${session.userId != null} and ${shopping.stock != 0}">
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">Quantity</div>
 								<div class="size-204 respon6-next">
 									<div class="rs1-select2 bor8 bg0">
 										<div style="margin: 1em; margin: 10px auto;" align='center'>
 											<form th:action="@{/order/create}" method="get">
-												<input type="number" th:name="quentity" placeholder="수량 선택" style="width: 100%; text-align: center;"
+												<input type="number" th:name="quentity" placeholder="수량 선택"
+													style="width: 100%; text-align: center;"
 													th:max="${shopping.stock}" th:min="1" /> <input
 													type="hidden" th:name="productId"
 													th:value="${shopping.productId}" />
@@ -195,7 +198,8 @@ th, td {
 						<div class="tab-pane fade show active" id="description"
 							role="tabpanel">
 							<div class="how-pos2 p-lr-15-md" align="center">
-								<p class="stext-102 cl6" th:text="${shopping.content}"></p>
+								 <p class="stext-102 cl6" th:utext="${shopping.content}"  id=content
+									></p>
 							</div>
 						</div>
 

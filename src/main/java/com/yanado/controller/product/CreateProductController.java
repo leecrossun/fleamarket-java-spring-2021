@@ -6,12 +6,14 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,9 +26,12 @@ import com.yanado.dao.ProductDAO;
 import com.yanado.dto.Cate;
 import com.yanado.dto.Product;
 import com.yanado.service.ProductService;
+
+
+@SuppressWarnings("deprecation")
 @Controller
-@SessionAttributes("shopping")
 @RequestMapping("shopping/create")
+@SessionAttributes("shopping")
 public class CreateProductController {
 
 	@Autowired
@@ -40,7 +45,7 @@ public class CreateProductController {
 		Product product = new Product();
 		String userId = UserSessionUtils.getLoginUserId(request.getSession());
 		Cate cate = cateDAO.getCategoryBySupplierId(userId);
-
+		
 		// String userId = "admin";
 		product.setSupplierId(userId);
 		product.setCate(cate);
@@ -51,6 +56,7 @@ public class CreateProductController {
 	public ModelAndView form() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shopping/form");
+		System.out.println("!!!!!!");
 		mav.addObject("formtype", "create");
 		return mav;
 	}
@@ -59,13 +65,14 @@ public class CreateProductController {
 	public String createShopping(@Valid @ModelAttribute("shopping") Product shopping, BindingResult result,
 			MultipartFile file, HttpServletRequest request, SessionStatus status, RedirectAttributes red) {
 
-		// red.addAttribute("type", 1);
-		
-		
 		if (result.hasErrors()) {
 			System.out.println(result.getAllErrors());
 			return "redirect:create";
 		}
+	
+		
+		String s = StringEscapeUtils.escapeHtml(shopping.getContent());
+		shopping.setContent(s);
 
 		// 다중 이미지 처리
 		/*
@@ -82,10 +89,7 @@ public class CreateProductController {
 		 * catch (IllegalStateException | IOException e) {
 		 * System.out.println(e.getMessage()); }
 		 */
-		
-		
-		System.out.println(shopping.getCate().getCateId() + "     " + shopping.getCate().getCateName());
-		
+
 		service.createProduct(shopping, null);
 
 		/*
@@ -101,6 +105,14 @@ public class CreateProductController {
 		red.addAttribute("shoppingId", shopping.getProductId());
 
 		return "redirect:/shopping/view/detail";
+	}
+	
+	@RequestMapping("/cancel")
+	public String cancel(@RequestParam String shoppingId, SessionStatus status, RedirectAttributes red) {
+
+		status.setComplete();
+
+		return "redirect:/";
 	}
 
 }

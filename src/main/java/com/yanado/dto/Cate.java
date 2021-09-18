@@ -28,8 +28,6 @@ import lombok.Setter;
 public class Cate implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CATEID")
 	String cateId;
 
