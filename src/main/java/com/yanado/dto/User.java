@@ -25,8 +25,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "FMEMBER")
-@NamedQueries({ @NamedQuery(name = "getUserByUserId", query = "SELECT m FROM User m WHERE m.userId=:id"),
-	@NamedQuery(name = "login", query = "SELECT m FROM User m WHERE m.userId=:id and m.password = :password")
+@NamedQueries({
+		@NamedQuery(name = "getUserByUserId", query = "SELECT m FROM User m WHERE m.userId=:id"),
+		@NamedQuery(name = "login", query = "SELECT m FROM User m WHERE m.userId=:id and m.password = :password"),
+		@NamedQuery(name = "getUserByUserName", query = "SELECT m FROM User m WHERE m.userName=:userName")
 })
 
 public class User implements Serializable {
@@ -77,4 +79,17 @@ public class User implements Serializable {
 		this.phone = phoneNumber;
 	}
 
+	// 회원 가입 시 사용
+	public User(String userId, String password, String userName, String address, String phone, String email, String account, String bank, String accName) {
+		this.userId = userId;
+		this.password = password;
+		this.userName = userName;
+		this.address = address;
+		this.phone = phone;
+		this.email = email;
+		this.auth = 0; // 등급은 0 고정 (seller는 관리자가 직접 가입)
+		this.account = account;
+		this.bank = bank;
+		this.accName = accName;
+	}
 }

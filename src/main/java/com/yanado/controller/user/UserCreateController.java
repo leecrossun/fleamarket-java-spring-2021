@@ -2,10 +2,12 @@ package com.yanado.controller.user;
 
 import java.io.IOException;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.yanado.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,43 +25,34 @@ import com.yanado.dto.User;
 @SessionAttributes("user")
 public class UserCreateController {
 
-	@Autowired
-	private UserDAO userDAO;
-
-	// 공동구매 생성 폼으로 가기
 	@ModelAttribute("user")
 	public User formBacking() {
 		User user = new User();
 		return user;
 	}
 
+	@Autowired
+	private UserService userService;
+
 	@RequestMapping(value = "/user/create", method = RequestMethod.POST)
-	protected String service(HttpServletRequest request, HttpServletResponse response, SessionStatus status,
-			@ModelAttribute("user") User user, BindingResult result) throws ServletException, IOException {
+	protected String service(HttpServletRequest request, SessionStatus status, @ModelAttribute("user") User user)
+			throws ServletException, IOException {
 
 		request.setCharacterEncoding("utf-8");
-		
-		if (result.hasErrors()) {
-			System.out.println(result.getAllErrors());
-			return "user/signUp";
-		}
 
 		String id = request.getParameter("userId");
 		String pwd = request.getParameter("password");
 		String name = request.getParameter("userName");
 		String address = request.getParameter("address");
-		String phone = request.getParameter("phoneNumber");
+		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		String account = request.getParameter("account");
 		String bank = request.getParameter("bank");
 		String accName = request.getParameter("accName");
 
-		User dto = new User(id, pwd, name, address, phone, email, 1, account, bank, accName, null, null);
-
-		userDAO.createUser(dto);
-
+		User dto = new User(id, pwd, name, address, phone, email, account, bank, accName);
+		userService.createUser(dto);
 		status.setComplete();
-
 		return "redirect:/user/login";
 	}
 
