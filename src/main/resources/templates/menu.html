@@ -106,7 +106,7 @@
 
 								</ul></li>
 
-							<li th:if="${session.userId != null}"><a
+							<li sec:authorize="isAuthenticated()"><a
 									th:href="@{/user/mypageMain}">MyPage</a></li>
 						</ul>
 					</div>
@@ -126,12 +126,6 @@
 							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4" style="margin: 10px;">
 							<a th:href="@{/cart/view}" style="color: black">Cart</a>
 						</div>
-
-						<!-- 						<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
-							<a th:href="@{/cart/view}"><i class="zmdi zmdi-shopping-cart"></i></a>
-						</div> -->
-
-
 					</div>
 				</nav>
 			</div>
