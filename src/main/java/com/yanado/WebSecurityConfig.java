@@ -24,6 +24,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // static 폴더를 login 없이 허용
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/user/**").permitAll()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
