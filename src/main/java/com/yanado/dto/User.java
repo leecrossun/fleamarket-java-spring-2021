@@ -3,12 +3,7 @@ package com.yanado.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
@@ -52,8 +47,12 @@ public class User implements Serializable {
 	@Column(name = "EMAIL")
 	private String email; // 이메일
 
-	@Column(name = "AUTH")
-	private int auth; // 셀러 or 구매자 -> 0(셀러), 1(구매자)
+//	@Column(name = "AUTH")
+//	private int auth; // 셀러 or 구매자 -> 0(셀러), 1(구매자)
+
+	@Column(nullable = false, name = "AUTH")
+	@Enumerated(value = EnumType.STRING)
+	private UserRole auth;
 
 	@Column(name = "ACCOUNT")
 	private String account; // 계좌
@@ -87,7 +86,7 @@ public class User implements Serializable {
 		this.address = address;
 		this.phone = phone;
 		this.email = email;
-		this.auth = 0; // 등급은 0 고정 (seller는 관리자가 직접 가입)
+		this.auth = UserRole.USER; // 등급은 0 고정 (seller는 관리자가 직접 가입)
 		this.account = account;
 		this.bank = bank;
 		this.accName = accName;
