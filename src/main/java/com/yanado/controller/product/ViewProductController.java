@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yanado.controller.user.UserSessionUtils;
@@ -50,9 +51,7 @@ public class ViewProductController {
 		System.out.println(content);
 		shopping.setContent(content);
 		System.out.println(shopping.getContent());
-		
-		
-		
+
 		mav.setViewName("shopping/shoppingDetail");
 		mav.addObject("shopping", shopping);
 		return mav;

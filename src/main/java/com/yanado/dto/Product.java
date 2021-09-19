@@ -86,6 +86,7 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy = "product")
 	List<Image> imageList;
 
+
 	/*
 	 * public void setContentString(String contentString) { if (contentString !=
 	 * null) { this.contentString = contentString; this.content =

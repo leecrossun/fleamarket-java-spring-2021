@@ -118,6 +118,14 @@
 						<div class="flex-c-m stext-106 cl6 size-105" sec:authorize="isAuthenticated()" style="margin: 10px;">
 							<p sec:authentication="principal.username"></p>
 						</div>
+						<div sec:authorize="hasAnyRole('ROLE_USER')"
+							 class="flex-c-m stext-106 cl6 size-105" style="margin: 10px;">
+							일반사용자입니다.
+						</div>
+						<div sec:authorize="hasAnyRole('ROLE_ADMIN')"
+							 class="flex-c-m stext-106 cl6 size-105" style="margin: 10px;">
+							관리자입니다.
+						</div>
 						<div sec:authorize="isAuthenticated()"
 							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">
 							<a th:href="@{/user/logout}" style="color: black">LogOut</a>
@@ -125,14 +133,6 @@
 						<div sec:authorize="isAuthenticated()"
 							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4" style="margin: 10px;">
 							<a th:href="@{/cart/view}" style="color: black">Cart</a>
-						</div>
-						<div sec:authorize="hasAnyRole('ROLE_USER')"
-							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4" style="margin: 10px;">
-							<a th:href="@{/}" style="color: black">일반사용자입니다.</a>
-						</div>
-						<div sec:authorize="hasAnyRole('ROLE_ADMIN')"
-							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4" style="margin: 10px;">
-							<a th:href="@{/}" style="color: black">관리자입니다.</a>
 						</div>
 					</div>
 				</nav>
