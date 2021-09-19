@@ -105,6 +105,8 @@
 										});
 
 					});
+
+
 </script>
 </head>
 <body class="animsition">
@@ -247,6 +249,13 @@
 														<script type="text/javascript">
 															$(document)
 																	.ready(
+																			function pasteHTML(filepath) {
+
+																				// var sHTML = "<span style='color:#FF0000;'>이미지도 같은 방식으로 삽입합니다.<\/span>";
+																				var sHTML = '<span style="color:#FF0000;"><img src="'+filepath+'"></span>';
+																				oEditors.getById["content"].exec("PASTE_HTML", [ sHTML ]);
+
+																			}
 																			function() {
 
 																				if ("[[${formtype}]]" == "update") {

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -60,7 +62,8 @@ public class CreateOrdercontroller {
 			HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
-		String userId = UserSessionUtils.getLoginUserId(request.getSession());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
 
 		Product product = productDAO.getProductByProductId(productId);
 
@@ -76,6 +79,8 @@ public class CreateOrdercontroller {
 		for (Item i : items) {
 			total += i.getUnitcost();
 		}
+		
+		total += product.getDelivery();
 
 		order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
 

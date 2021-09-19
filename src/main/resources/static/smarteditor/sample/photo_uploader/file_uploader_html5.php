@@ -30,7 +30,7 @@
 		if(file_put_contents($newPath, $file->content)) {
 			$sFileInfo .= "&bNewLine=true";
 			$sFileInfo .= "&sFileName=".$filename;
-			$sFileInfo .= "&sFileURL=upload/".$file->name;
+			$sFileInfo .= "&sFileURL=/smarteditor/upload/".$file->name;
 		}
 		
 		echo $sFileInfo;
