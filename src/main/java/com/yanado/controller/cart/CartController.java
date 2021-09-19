@@ -8,8 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.yanado.dao.CartDAO;
+import com.yanado.dto.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,12 +34,15 @@ public class CartController {
 	@Autowired
 	private ProductDAO productDAO;
 
+	@Autowired
+	private CartDAO cartDAO;
+
 	@RequestMapping("/add")
-	protected String add(@RequestParam String shoppingId, HttpServletRequest request, RedirectAttributes red) throws ServletException, IOException {
+	protected String add(@ModelAttribute("shopping") Product shopping, HttpServletRequest request, RedirectAttributes red) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
 		// 여기 추가
-	
+		Cart cart = new Cart();
 		return "redirect:/";
 	}
 	
