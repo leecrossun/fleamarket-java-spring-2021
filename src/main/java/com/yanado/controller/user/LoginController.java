@@ -27,6 +27,7 @@ public class LoginController {
 	@RequestMapping("/user/login")
 	public String login(Model model, HttpServletRequest req){
 		model.addAttribute("message",req.getServletContext());
+		
 		return "user/loginPage";
 	}
 
