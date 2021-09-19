@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,17 +39,6 @@ public class ViewOrderController {
 		
 	}
 	
-	// 내 주문 리스트
-	@RequestMapping("/my")
-	public ModelAndView viewOrderByUserId(HttpServletRequest request){
-		UserSessionUtils uSession = new UserSessionUtils();
-		String userId = uSession.getLoginUserId(request.getSession());
-		List<Order> order = (List<Order>) orderDAO.getOrderByUserId(userId);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("order/myList");
-		mav.addObject("orderList", order);
-		return mav;
-		
-	}
+	
 
 }

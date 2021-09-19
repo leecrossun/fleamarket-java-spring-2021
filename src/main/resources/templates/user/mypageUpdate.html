@@ -1,281 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Update</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->
-<link rel="icon" type="image/png"
-	href="../../static/images/icons/favicon.png" />
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/fonts/linearicons-v1.0.0/icon-font.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/vendor/animate/animate.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/vendor/css-hamburgers/hamburgers.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/vendor/animsition/css/animsition.min.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/vendor/slick/slick.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/vendor/MagnificPopup/magnific-popup.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css"
-	href="../../static/vendor/perfect-scrollbar/perfect-scrollbar.css">
-<!--===============================================================================================-->
-<link rel="stylesheet" type="text/css" href="../../static/css/util.css">
-<link rel="stylesheet" type="text/css" href="../../static/css/main.css">
-<!--===============================================================================================-->
-</head>
-<body class="animsition">
-	<div th:replace="/menu :: header"></div>
-	<!-- Product Detail -->
-	<section class="sec-product-detail bg0 p-t-65 p-b-60">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-md-6 col-lg-5 p-b-30">
-					<div class="p-r-50 p-t-5 p-lr-0-lg">
-
-						<div class="p-t-33"></div>
-
-					</div>
-				</div>
-			</div>
-
-			<div class="bor10 m-t-50 p-t-43 p-b-40">
-				<!-- Tab01 -->
-				<div class="tab01">
-					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item p-b-10" style="margin-left: 35px;">Mypage</li>
-					</ul>
-
-					<!-- Tab panes -->
-					<div class="tab-content p-t-43" align='center'>
-
-						<form th:action="@{/user/updateInfo}" th:object="${user}" id="form"
-							method="post">
-							<!-- - -->
-							<div class="tab-pane fade show active" id="description"
-								role="tabpanel">
-
-								<div class="how-pos2 p-lr-15-md">
-									<div class="flex-w flex-r-m p-b-10" style="margin-left:150px; margin-right:150px;">
-
-										<div class="size-203 flex-l-m respon6">아이디</div>
-
-										<div class="size-204 respon6-next">
-											<div class="rs1-select2 bor8 bg0">
-												<input type="text" name="userId" th:field="*{userId}"
-													style="padding: 10px; text-align: center"
-													th:value="${userId}" readOnly>
-											</div>
-
-										</div>
-									</div>
-
-								 	<div class="flex-w flex-r-m p-b-10" style="margin-left:150px; margin-right:150px;">
-										<div class="size-203 flex-l-m respon6">비밀번호</div>
-
-										<div class="size-204 respon6-next">
-											<div class="rs1-select2 bor8 bg0">
-												<input type="password" name="password"
-													style="padding: 10px; text-align: center" id="password"
-													th:value="${password}">
-											</div>
-
-										</div>
-									</div>
-
-
-									<div class="flex-w flex-r-m p-b-10" style="margin-left:150px; margin-right:150px;" >
-
-										<div class="size-203 flex-l-m respon6">비밀번호 확인</div>
-
-										<div class="size-204 respon6-next">
-											<div class="rs1-select2 bor8 bg0">
-
-												<input type="password" name="password"
-													style="padding: 10px; text-align: center" id="passwordcheck"
-													th:value="${password}">
-											</div>
-
-										</div>
-									</div>
-
-
-									 <div class="flex-w flex-r-m p-b-10" style="margin-left:150px; margin-right:150px;">
-
-										<div class="size-203 flex-l-m respon6">이름</div>
-
-										<div class="size-204 respon6-next">
-											<div class="rs1-select2 bor8 bg0">
-												<input type="text" name="name" th:field="*{userName}" id="userName"
-													style="padding: 10px; text-align: center"
-													th:value="${name}" readOnly>
-											</div>
-
-										</div>
-									</div>
-
-
-									<div class="flex-w flex-r-m p-b-10" style="margin-left:150px; margin-right:150px;">
-										<div class="size-203 flex-l-m respon6">휴대폰 번호</div>
-
-										<div class="size-204 respon6-next">
-											<div class="rs1-select2 bor8 bg0">
-												<input type="text" name="phoneNumber" id="phoneNumber"
-													th:field="*{phoneNumber}"
-													style="padding: 10px; text-align: center"
-													th:value="${phoneNumber}">
-											</div>
-
-										</div>
-									</div>
-
-									<div class="flex-w flex-r-m p-b-10" style="margin-left:150px; margin-right:150px;">
-
-										<div class="size-203 flex-l-m respon6">주소</div>
-
-										<div class="size-204 respon6-next">
-											<div class="rs1-select2 bor8 bg0">
-												<input type="text" name="address" th:field="*{address}" id="address"
-													style="padding: 10px; text-align: center"
-													th:value="${address}">
-											</div>
-
-										</div>
-									</div>
-
-
-									<div class="flex-w flex-r-m p-b-10" style="margin-left:150px; margin-right:150px;" >
-										<div class="size-203 flex-l-m respon6">이메일</div>
-
-										<div class="size-204 respon6-next">
-											<div class="rs1-select2 bor8 bg0">
-												<input type="text" name="email" th:field="*{email}" id="email"
-													style="padding: 10px; text-align: center"
-													th:value="${email}">
-											</div>
-
-										</div>
-									</div>
-
-									<div class="w-full"
-										style="margin-top: 70px; margin-left: 20px;">
-
-										<div class="header-cart-buttons flex-w w-full flex-c-m p-b-10">
-											<input type="button" value="회원정보수정"
-												onclick="update(this.form)" style="color: white;"
-												class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10" />
-
-											<input type="button" value="취소" onclick="cancel(this.form)"
-												style="color: white;"
-												class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10" />
-										</div>
-									</div>
-
-									<div class="flex-w flex-r-m p-b-10">
-
-										<input type="button" value="회원탈퇴"
-											onclick="deletePage(this.form)"
-											class="flex-c-m stext-101 cl0 size-107 bg1 bor1 hov-btn1 p-lr-15 trans-04"
-											style="margin-top: 3%; background-color: #E2E2E2; color: black;" />
-									</div>
-								</div>
-							</div>
-						</form>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-
-	<!-- Back to top -->
-	<div class="btn-back-to-top" id="myBtn">
-		<span class="symbol-btn-back-to-top"> <i
-			class="zmdi zmdi-chevron-up"></i>
-		</span>
-	</div>
-
+	<title>SignUp</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
-	<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<link rel="icon" type="image/png"
+		  href="../../static/images/icons/favicon.png" />
 	<!--===============================================================================================-->
-	<script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/vendor/bootstrap/css/bootstrap.min.css">
 	<!--===============================================================================================-->
-	<script src="../../static/vendor/bootstrap/js/popper.js"></script>
-	<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/fonts/iconic/css/material-design-iconic-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/fonts/linearicons-v1.0.0/icon-font.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/vendor/select2/select2.min.css">
 	<!--===============================================================================================-->
 	<!--===============================================================================================-->
-	<script src="../../static/vendor/daterangepicker/moment.min.js"></script>
-	<script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/vendor/slick/slick.css">
 	<!--===============================================================================================-->
-	<script src="../../static/vendor/slick/slick.min.js"></script>
-	<script src="../../static/js/slick-custom.js"></script>
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/vendor/MagnificPopup/magnific-popup.css">
 	<!--===============================================================================================-->
-	<script src="../../static/vendor/parallax100/parallax100.js"></script>
-	<script>
-		$('.parallax100').parallax100();
-	</script>
+	<link rel="stylesheet" type="text/css"
+		  href="../../static/vendor/perfect-scrollbar/perfect-scrollbar.css">
 	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../../static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="../../static/css/main.css">
 	<!--===============================================================================================-->
-	<script
-		src="../../static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-	<script>
-		$('.js-pscroll').each(function() {
-			$(this).css('position', 'relative');
-			$(this).css('overflow', 'hidden');
-			var ps = new PerfectScrollbar(this, {
-				wheelSpeed : 1,
-				scrollingThreshold : 1000,
-				wheelPropagation : false,
-			});
 
-			$(window).on('resize', function() {
-				ps.update();
-			})
-		});
-	</script>
-	<!--===============================================================================================-->
-	<script src="../../static/js/main.js"></script>
+	<script type="text/javascript">
+		var chk = false;
 
-	<script>
-		function cancel(f) {
-			f.action = "/user/mypage";
-			f.method = "POST";
-			f.submit();
+		function msg() {
+			var params = location.search.substr(location.search.indexOf("?") + 1);
+
+			param = params.split("&");
+
+			if (param[0] == "exist=1") {
+				alert('이미 사용중인 아이디 입니다.');
+				document.getElementById("userId").value = '';
+				chk = false;
+			} else if (param[0] == "exist=0") {
+				alert('사용가능한 아이디 입니다.');
+				var id = param[1].split("=");
+				document.getElementById("userId").value = id[1];
+				chk = true;
+			}
+
 		}
 
-		function update(f) {
-			var password = document.getElementById("password").value;
-			var passcheck = document.getElementById("passwordcheck").value;
-			
-			var phoneNum = document.getElementById("phoneNumber").value;
-			var address = document.getElementById("address").value;
-			var email = document.getElementById("email").value;
-		
+		function checkForm() {
+			const id = document.getElementById("userId").value;
+			const password = document.getElementById("password").value;
+			const passcheck = document.getElementById("passwordcheck").value;
+			const userName = document.getElementById("userName").value;
+			const phoneNum = document.getElementById("phone").value;
+			const address = document.getElementById("address").value;
+			const account = document.getElementById("account").value;
+			const email = document.getElementById("email").value;
+			const accName = document.getElementsByName("accName");
+			const bank = document.getElementById("bank");
+
+			if (id == '') {
+				alert("아이디를 입력하세요.");
+				return;
+			}
+
+			if (chk == false) {
+				alert("아이디 중복 검사를 하세요.");
+				return;
+			}
+
 			if (password == '') {
 				alert("패스워드를 입력하세요");
 				return;
@@ -296,7 +109,7 @@
 				alert("이름을 입력하세요.");
 				return;
 			}
-			
+
 			if (phoneNum == '') {
 				alert('전화번호를 입력하세요.')
 				return;
@@ -312,6 +125,11 @@
 				return;
 			}
 
+			if (account == '') {
+				alert("계좌번호를 입력하세요.");
+				return;
+			}
+
 			if (email == '') {
 				alert("이메일을 입력하세요.");
 				return;
@@ -323,13 +141,270 @@
 				}
 			}
 
-			f.submit();
-		}
+			if (accName == ''){
+				alert("계좌주명을 입력하세요.");
+				return;
+			}
 
-		function deletePage(f) {
-			f.action = "/user/delete";
-			f.submit();
+			if (bank == ''){
+				alert("은행명을 입력하세요.");
+				return;
+			}
+
+
+			document.getElementById("form").submit();
+
 		}
 	</script>
+
+</head>
+<body class="animsition" onload="msg();">
+<div th:replace="/menu :: header"></div>
+<!-- Product Detail -->
+<section class="sec-product-detail bg0 p-t-65 p-b-60">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-6 col-lg-5 p-b-30">
+				<div class="p-r-50 p-t-5 p-lr-0-lg">
+
+					<div class="p-t-33"></div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="bor10 m-t-50 p-t-43 p-b-40">
+			<!-- Tab01 -->
+			<div class="tab01">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item p-b-10" style="margin-left: 35px;">SignUp</li>
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content p-t-43" align='center'>
+
+					<form th:action="@{/user/create}" th:object="${user}" id="form"
+						  method="post">
+
+						<div class="tab-pane fade show active" id="description"
+							 role="tabpanel">
+
+							<div class="how-pos2 p-lr-15-md">
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">아이디</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="text" name="userId" th:field="*{userId}"
+												   id="userId" style="padding: 10px; text-align: center"
+												   th:value="${userId}" readonly>
+										</div>
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">비밀번호</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="password" name="password" id="password"
+												   th:field="*{password}"
+												   style="padding: 10px; text-align: center"
+												   th:value="${password}">
+										</div>
+
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">비밀번호 확인</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="password" name="password" id="passwordcheck"
+												   style="padding: 10px; text-align: center"
+												   th:value="${password}">
+										</div>
+
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">이름</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="text" name="userName" th:field="*{userName}"
+												   id="userName" style="padding: 10px; text-align: center"
+												   th:value="${userName}">
+										</div>
+
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">휴대폰 번호</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="text" name="phone" id="phone"
+												   th:field="*{phone}" placeholder="숫자만 입력해주세요"
+												   style="padding: 10px; text-align: center"
+												   th:value="${phone}">
+										</div>
+
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">주소</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="text" name="address" th:field="*{address}"
+												   id="address" style="padding: 10px; text-align: center"
+												   th:value="${address}">
+										</div>
+
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">이메일</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="email" name="email" th:field="*{email}"
+												   id="email" style="padding: 10px; text-align: center"
+												   th:value="${email}">
+										</div>
+
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">계좌번호</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="text" name="account" th:field="*{account}"
+												   id="account" placeholder="계좌번호를 입력해주세요"
+												   style="padding: 10px; text-align: center"
+												   th:value="${account}">
+										</div>
+
+									</div>
+								</div>
+
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">은행명</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="text" name="bank" th:field="*{bank}"
+												   id="bank" style="padding: 10px; text-align: center"
+												   th:value="${bank}">
+										</div>
+
+									</div>
+								</div>
+								<div class="flex-w flex-r-m p-b-10"
+									 style="margin-left: 150px; margin-right: 150px;">
+									<div class="size-203 flex-l-m respon6">계좌주명</div>
+
+									<div class="size-204 respon6-next">
+										<div class="rs1-select2 bor8 bg0">
+											<input type="text" name="accName" th:field="*{accName}"
+												   id="accName" style="padding: 10px; text-align: center"
+												   th:value="${accName}">
+										</div>
+
+									</div>
+								</div>
+
+
+								<div class="w-full"
+									 style="margin-top: 70px; margin-left: 20px;">
+
+									<div class="header-cart-buttons flex-w w-full flex-c-m p-b-10">
+										<input type="button" value="회원가입" style="color: white;"
+											   onclick="checkForm()"
+											   class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10" />
+
+										<input type="button" value="취소"
+											   onclick="location.href='/home'" style="color: white;"
+											   class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+<!-- Back to top -->
+<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top"> <i
+				class="zmdi zmdi-chevron-up"></i>
+		</span>
+</div>
+
+<!--===============================================================================================-->
+<script src="../../static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../static/vendor/bootstrap/js/popper.js"></script>
+<script src="../../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<script src="../../static/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="../../static/vendor/slick/slick.min.js"></script>
+<script src="../../static/js/slick-custom.js"></script>
+<!--===============================================================================================-->
+<script src="../../static/vendor/parallax100/parallax100.js"></script>
+<script>
+	$('.parallax100').parallax100();
+</script>
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<script
+		src="../../static/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script>
+	$('.js-pscroll').each(function() {
+		$(this).css('position', 'relative');
+		$(this).css('overflow', 'hidden');
+		var ps = new PerfectScrollbar(this, {
+			wheelSpeed : 1,
+			scrollingThreshold : 1000,
+			wheelPropagation : false,
+		});
+
+		$(window).on('resize', function() {
+			ps.update();
+		})
+	});
+</script>
+<!--===============================================================================================-->
+<script src="../../static/js/main.js"></script>
 </body>
 </html>

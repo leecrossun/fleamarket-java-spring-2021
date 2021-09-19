@@ -1,30 +1,26 @@
 package com.yanado.controller.user;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yanado.dao.AlarmDAO;
+import com.yanado.dao.BuyerDAO;
+import com.yanado.dao.OrderDAO;
 import com.yanado.dao.ProductDAO;
 import com.yanado.dao.UserDAO;
-import com.yanado.dto.Alarm;
-
+import com.yanado.dto.Buyer;
+import com.yanado.dto.Order;
 import com.yanado.dto.Product;
 import com.yanado.dto.User;
 
@@ -39,14 +35,19 @@ public class MypageController extends HttpServlet {
 
 	@Autowired
 	private ProductDAO productDAO;
+	
+	@Autowired
+	private OrderDAO orderDAO;
+	
+	@Autowired
+	private BuyerDAO buyerDAO;
 
 	@RequestMapping("user/mypageMain")
 	protected ModelAndView service(HttpServletRequest request) throws ServletException, IOException {
 		ModelAndView mav = new ModelAndView();
-		request.setCharacterEncoding("utf-8");
 
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("userId");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
 
 		User dto = userDAO.getUserByUserId(userId);
 
@@ -58,16 +59,32 @@ public class MypageController extends HttpServlet {
 
 	}
 
-		// 내가 올린 쇼핑 리스트
-		@RequestMapping("user/list/myProduct")
-		public ModelAndView viewShoppingByUserId(HttpServletRequest request) {
-			UserSessionUtils uSession = new UserSessionUtils();
-			String userId = uSession.getLoginUserId(request.getSession());
-			List<Product> shopping = productDAO.getProductBySupplierId(userId);
-			ModelAndView mav = new ModelAndView("shoppingList");
-			mav.setViewName("shopping/myList");
-			mav.addObject("shoppingList", shopping);
-			return mav;
+	// 내가 올린 쇼핑 리스트
+	@RequestMapping("user/list/myProduct")
+	public ModelAndView viewShoppingByUserId(HttpServletRequest request) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
 
-		}
+		List<Product> shopping = productDAO.getProductBySupplierId(userId);
+		ModelAndView mav = new ModelAndView("shoppingList");
+		mav.setViewName("shopping/myList");
+		mav.addObject("shoppingList", shopping);
+		return mav;
+
+	}
+
+	// 내 주문 리스트
+	@RequestMapping("user/list/order")
+	public ModelAndView viewOrderByUserId(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
+
+		List<Order> order = (List<Order>) orderDAO.getOrderByUserId(userId);
+		mav.setViewName("order/myList");
+		mav.addObject("orderList", order);
+		
+		return mav;
+
+	}
 }
