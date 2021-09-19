@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.dao.DataAccessException;
@@ -51,9 +52,9 @@ public class OrderDAO {
 			query = em.createNamedQuery("getOrderByOrderId", Order.class);
 			query.setParameter("id", orderId);
 			result = (Order) query.getSingleResult();
-			
+
 			result.setItem(getItemByOrderId(result.getOrderId()));
-			
+
 		} catch (NoResultException ex) {
 			System.out.println("fail getOrder");
 			return null;
@@ -70,11 +71,11 @@ public class OrderDAO {
 			query = em.createNamedQuery("getOrderByUserId", Order.class);
 			query.setParameter("id", userId);
 			result = (List<Order>) query.getResultList();
-			
-			for(Order r : result) {
+
+			for (Order r : result) {
 				r.setItem(getItemByOrderId(r.getOrderId()));
 			}
-			
+
 		} catch (NoResultException ex) {
 			System.out.println("fail getShoppingList");
 			return null;
@@ -91,11 +92,11 @@ public class OrderDAO {
 			query = em.createNamedQuery("getOrderBySupplierId", Order.class);
 			query.setParameter("id", userId);
 			result = (List<Order>) query.getResultList();
-			
-			for(Order r : result) {
+
+			for (Order r : result) {
 				r.setItem(getItemByOrderId(r.getOrderId()));
 			}
-			
+
 		} catch (NoResultException ex) {
 			System.out.println("fail getShoppingList");
 			return null;
@@ -136,6 +137,16 @@ public class OrderDAO {
 		}
 		System.out.println("success getOrder");
 		return result;
+	}
+
+	@Transactional
+	public void updatePaymentByOrderId(String orderId, int payment) {
+		Query query = em.createNamedQuery("updatePaymentByOrderId");
+
+		query.setParameter("id", orderId)
+				.setParameter("payment", payment);
+
+		query.executeUpdate();
 	}
 
 }
