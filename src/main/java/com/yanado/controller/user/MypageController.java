@@ -7,12 +7,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yanado.dao.BuyerDAO;
@@ -23,6 +24,7 @@ import com.yanado.dto.Buyer;
 import com.yanado.dto.Order;
 import com.yanado.dto.Product;
 import com.yanado.dto.User;
+import com.yanado.dto.UserRole;
 
 // 해당 회원 아이디로 정보 가져와서 마이페이지로 이동
 @Controller
@@ -35,10 +37,10 @@ public class MypageController extends HttpServlet {
 
 	@Autowired
 	private ProductDAO productDAO;
-	
+
 	@Autowired
 	private OrderDAO orderDAO;
-	
+
 	@Autowired
 	private BuyerDAO buyerDAO;
 
@@ -51,7 +53,7 @@ public class MypageController extends HttpServlet {
 
 		User dto = userDAO.getUserByUserId(userId);
 
-		request.setAttribute("dto", dto);
+		request.setAttribute("user", dto);
 
 		mav.setViewName("user/mypageMain");
 		mav.addObject("user", dto);
@@ -81,9 +83,37 @@ public class MypageController extends HttpServlet {
 		String userId = authentication.getName();
 
 		List<Order> order = (List<Order>) orderDAO.getOrderByUserId(userId);
+
 		mav.setViewName("order/myList");
 		mav.addObject("orderList", order);
-		
+
+		return mav;
+
+	}
+
+	// 내 주문 받은
+	@RequestMapping("seller/list/order")
+	public ModelAndView viewOrderBySupplierId(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
+
+		List<Order> order = (List<Order>) orderDAO.getOrderBySupplierId(userId);
+
+		mav.setViewName("order/supplierList");
+		mav.addObject("orderList", order);
+
+		return mav;
+
+	}
+
+	@RequestMapping("order/view/detail")
+	public ModelAndView viewDetailOrder(@RequestParam String orderId) {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("order/result");
+		Order order = orderDAO.getOrderByOrderId(orderId);
+		mav.addObject("order", order);
 		return mav;
 
 	}

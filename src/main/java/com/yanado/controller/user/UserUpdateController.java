@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,8 +33,9 @@ public class UserUpdateController extends HttpServlet {
 
 	@ModelAttribute("user")
 	public User formBacking(HttpServletRequest request) {
-		UserSessionUtils uSession = new UserSessionUtils();
-		String userId = uSession.getLoginUserId(request.getSession());
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
+
 		User user = userDAO.getUserByUserId(userId);
 
 		return user;
