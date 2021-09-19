@@ -94,7 +94,7 @@
 
                                         <li class="bor18" th:if="${session.auth == NULL}">
                                             <div style="margin-inline-start: 200px;">
-                                                <a th:href="@{/order/view/my}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+                                                <a th:href="@{/user/list/order}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
                                                     <p style="float: left;">ORDER LIST</p>
                                                     <p style="float: left; font-size: xx-small; margin-left: 180px;">주문하신 상품의 주문 내역을 확인하실 수 있습니다.</p>
                                                 </a>
@@ -119,14 +119,6 @@
                                             </div>
                                         </li>
 
-                                        <li class="bor18">
-                                            <div style="margin-inline-start: 200px;">
-                                                <a th:href="@{/user/list/my(type=5)}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
-                                                    <p style="float: left;">ALARM LIST</p>
-                                                    <p style="float: left; font-size: xx-small; margin-left: 185px;">알람 내역을 확인하실 수 있습니다.</p>
-                                                </a>
-                                            </div>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>

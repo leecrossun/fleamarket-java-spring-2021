@@ -32,57 +32,49 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@NamedQueries({
-	@NamedQuery
-	(
-			name = "getOrderByOrderId",
-			query = "SELECT o FROM Order o WHERE o.orderId=:id"
-	),
-	@NamedQuery
-	(
-			name = "getOrderByUserId",
-			query = "SELECT o FROM Order o WHERE o.buyer.userId=:id"
-	)
-	
+@NamedQueries({ @NamedQuery(name = "getOrderByOrderId", query = "SELECT o FROM Order o WHERE o.orderId=:id"),
+		@NamedQuery(name = "getOrderByUserId", query = "SELECT o FROM Order o WHERE o.buyer.userId=:id"),
+		@NamedQuery(name = "getOrderBySupplierId", query = "SELECT o FROM Order o WHERE o.supplier.userId=:id")
+
 })
-@Table(name="FORDER")
+@Table(name = "FORDER")
 public class Order implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(generator = "ORDER_GEN")
 	@GenericGenerator(name = "ORDER_GEN", strategy = "uuid")
-	@Column(name="ORDERID")
+	@Column(name = "ORDERID")
 	String orderId;
-	
+
 	@ManyToOne(targetEntity = User.class)
-	@JoinColumn(name="SUPPLIER")
+	@JoinColumn(name = "SUPPLIER")
 	User supplier;
-	
+
 	@ManyToOne(targetEntity = User.class)
-	@JoinColumn(name="BUYER")
+	@JoinColumn(name = "BUYER")
 	User buyer;
-	
-	@Column(name="BILLNAME")
+
+	@Column(name = "BILLNAME")
 	String billName;
-	
-	@Column(name="BILLPHONE")
+
+	@Column(name = "BILLPHONE")
 	String billPhone;
-	
-	@Column(name="BILLADDRESS")
+
+	@Column(name = "BILLADDRESS")
 	String billAddress;
-	
-	@OneToMany(mappedBy="order",cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	@Transient
 	List<Item> item;
-	
-	@Column(name="TOTALPRICE")
+
+	@Column(name = "TOTALPRICE")
 	int totalPrice;
-	
-	@Column(name="ORDERDATE")
+
+	@Column(name = "ORDERDATE")
 	@Temporal(TemporalType.DATE)
 	Date orderDate;
-	
+
 	int payment;
-	
+
 	int status;
 }
