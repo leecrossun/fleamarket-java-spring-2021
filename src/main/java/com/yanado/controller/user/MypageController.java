@@ -117,4 +117,14 @@ public class MypageController extends HttpServlet {
 		return mav;
 
 	}
+
+	@RequestMapping("order/updatePayment")
+	public String updatePayment(@RequestParam String orderId, @RequestParam int payment) {
+		System.out.println(payment);
+		orderDAO.updatePaymentByOrderId(orderId, payment);
+		
+		System.out.println(payment);
+		
+		return "redirect:/seller/list/order";
+	}
 }

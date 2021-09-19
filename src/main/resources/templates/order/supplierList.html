@@ -64,10 +64,17 @@ th, td {
 }
 </style>
 <script type="text/javascript">
-	function update(id) {
-		alert(id);
+	function update(id, box) {
+		var chk = document.getElementById("pay").checked;
+		var p;
 		
-		var loc = "/order/updatePament(orderId="+id+")}"
+		if(chk){
+			p = 1;
+		} else {
+			p = 0;
+		}
+
+		var loc = "/order/updatePayment?orderId=" + id + "&payment=" + p;
 
 		location.href = loc;
 	}
@@ -79,31 +86,32 @@ th, td {
 
 	<!-- My Product List -->
 	<div align="center" style="margin: 50px;">
-			<table>
-				<th>주문번호</th>
-				<th>구매자</th>
-				<th>제품명</th>
-				<th>총 가격</th>
-				<th>주문 날짜</th>
-				<th>입금 확인</th>
-				<tr class="product_row" th:each="order, index : ${orderList}">
-					<td th:text="${order.orderId}">test</td>
-					<td th:text="${order.buyer.userName}">test</td>
-					<td th:each="i : ${order.item}">
-						<table style="border: 0;">
-							<tr>
-								<td th:text="${i.product.productName}">test</td>
-								<td th:text="${i.quantity} + '개'">test</td>
-						</table>
-					</td>
+		<table>
+			<th>주문번호</th>
+			<th>구매자</th>
+			<th>제품명</th>
+			<th>총 가격</th>
+			<th>주문 날짜</th>
+			<th>입금 확인</th>
+			<tr class="product_row" th:each="order, index : ${orderList}">
+				<td th:text="${order.orderId}">test</td>
+				<td th:text="${order.buyer.userName}">test</td>
+				<td th:each="i : ${order.item}">
+					<table style="border: 0;">
+						<tr>
+							<td th:text="${i.product.productName}">test</td>
+							<td th:text="${i.quantity} + '개'">test</td>
+					</table>
+				</td>
 
-					<td th:text="${order.totalPrice}">test</td>
-					<td th:text="${order.orderDate}">test</td>
-					<td><input type="checkbox" id="pay" name="pay"
-						th:checked="${order.payment == 0 ? 'checked' : ''}" onchange="update('[[${order.orderId}]]')" /></td>
-				</tr>
+				<td th:text="${order.totalPrice}">test</td>
+				<td th:text="${order.orderDate}">test</td>
+				<td><input type="checkbox" id="pay" name="pay"
+					th:checked="${order.payment == 1}"
+					th:onchange="update([[${order.orderId}]])" /></td>
+			</tr>
 
-			</table>
+		</table>
 	</div>
 
 	<!-- Back to top -->
