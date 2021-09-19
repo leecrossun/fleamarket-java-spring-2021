@@ -56,10 +56,9 @@ public class CreateOrdercontroller {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView form(@Valid @ModelAttribute("order") Order order,
-			@RequestParam(defaultValue = "1") int quentity, @RequestParam String productId,
-			@RequestParam(defaultValue = "1") int type, BindingResult result, SessionStatus status,
-			HttpServletRequest request) {
+	@ModelAttribute("order")
+	public ModelAndView form(@RequestParam String productId, @RequestParam(defaultValue = "1") int quantity,
+			SessionStatus status, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -71,7 +70,7 @@ public class CreateOrdercontroller {
 		User seller = userDAO.getUserByUserId(product.getSupplierId());
 
 		List<Item> items = new ArrayList<Item>();
-		Item item = new Item(null, product, seller, product.getPrice() * quentity, quentity);
+		Item item = new Item(null, product, seller, product.getPrice() * quantity, quantity);
 		items.add(item);
 
 		// Total Price
@@ -79,13 +78,14 @@ public class CreateOrdercontroller {
 		for (Item i : items) {
 			total += i.getUnitcost();
 		}
-		
+
 		total += product.getDelivery();
 
-		order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
+		Order order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
 
 		mav.addObject("order", order);
 		mav.setViewName("order/form");
+		
 		return mav;
 	}
 
@@ -97,16 +97,13 @@ public class CreateOrdercontroller {
 			return "shopping/form";
 		}
 
-	
-		
-
 		List<Item> items = order.getItem();
 		for (Item i : items) {
 			buyerDAO.createBuyer(new Buyer(i.getProduct(), i.getBuyer(), 0));
 			productDAO.updateStockByProductId(i.getProduct().getProductId());
 
 		}
-		
+
 		orderDAO.createOrder(order, order.getItem());
 		System.out.println("createOrder Log");
 
