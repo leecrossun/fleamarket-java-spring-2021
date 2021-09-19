@@ -32,7 +32,8 @@ import lombok.Setter;
 	(
 			name = "getItemByItemId",
 			query = "SELECT i FROM Item i WHERE i.itemId=:id"
-	)
+	),
+	@NamedQuery(name = "getItemByOrderId", query = "SELECT i FROM Item i WHERE i.order.orderId=:id")
 	
 }) // OrderDAO에 존재
 @Table(name = "FITEM")

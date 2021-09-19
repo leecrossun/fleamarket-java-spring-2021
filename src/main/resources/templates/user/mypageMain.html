@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Mypage Main</title>
 <meta charset="UTF-8">
@@ -72,57 +73,72 @@
 					</ul>
 
 					<!-- Tab panes -->
-					<div class="tab-content p-t-43"><!-- align='center'-->
+					<div class="tab-content p-t-43">
+						<!-- align='center'-->
 
 						<form th:action="@{/user/mypageMain}" th:object="${mypage}"
-                            method="post">
-                            
-                            <div class="tab-pane fade show active" id="description"
+							method="post">
+
+							<div class="tab-pane fade show active" id="description"
 								role="tabpanel">
-                               
+
 								<div class="how-pos2 p-lr-15-md">
 
-                                    <ul>
-                                        <li class="bor18">
-                                            <div style="margin-inline-start: 200px;">
-                                                <a th:href="@{/user/updateInfo}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
-                                                    <p style="float: left;">MYPAGE</p>
-                                                    <p style="float: left; font-size: xx-small; margin-left: 200px;">소중한 개인정보를 관리하는 공간입니다.</p>
-                                                </a>
-                                            </div>
-                                        </li>
+									<ul>
+										<li class="bor18">
+											<div style="margin-inline-start: 200px;">
+												<a th:href="@{/user/updateInfo}"
+													class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+													<p style="float: left;">MYPAGE</p>
+													<p
+														style="float: left; font-size: xx-small; margin-left: 200px;">소중한
+														개인정보를 관리하는 공간입니다.</p>
+												</a>
+											</div>
+										</li>
 
-                                        <li class="bor18" th:if="${session.auth == NULL}">
-                                            <div style="margin-inline-start: 200px;">
-                                                <a th:href="@{/user/list/order}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
-                                                    <p style="float: left;">ORDER LIST</p>
-                                                    <p style="float: left; font-size: xx-small; margin-left: 180px;">주문하신 상품의 주문 내역을 확인하실 수 있습니다.</p>
-                                                </a>
-                                            </div>
-                                        </li>
-        
-                                        <li class="bor18" th:if="${session.auth != NULL}">
-                                            <div style="margin-inline-start: 200px;">
-                                                <a th:href="@{/product/view/my}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
-                                                    <p style="float: left;">MY SALE LIST</p>
-                                                    <p style="float: left; font-size: xx-small; margin-left: 170px;">판매 중인 물품 내역을 확인하실 수 있습니다.</p>
-                                                </a>
-                                            </div>
-                                        </li>
-                                        
-                                         <li class="bor18" th:if="${session.auth != NULL}">
-                                            <div style="margin-inline-start: 200px;">
-                                                <a th:href="@{/product/view/my}" class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
-                                                    <p style="float: left;">Buyer</p>
-                                                    <p style="float: left; font-size: xx-small; margin-left: 170px;">구매자들의 입금을 확인 및 수정할 수 있습니다.</p>
-                                                </a>
-                                            </div>
-                                        </li>
+										<li class="bor18">
+											<div style="margin-inline-start: 200px;"
+												sec:authorize="hasAnyRole('ROLE_USER')">
+												<a th:href="@{/user/list/order}"
+													class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+													<p style="float: left;">ORDER LIST</p>
+													<p
+														style="float: left; font-size: xx-small; margin-left: 180px;">주문하신
+														내역을 확인하실 수 있습니다.</p>
+												</a>
+											</div>
+										</li>
 
-                                    </ul>
-                                </div>
-                            </div>
-                        </form>
+										<li class="bor18">
+											<div style="margin-inline-start: 200px;"
+												sec:authorize="hasAnyRole('ROLE_ADMIN')">
+												<a th:href="@{/seller/list/order}"
+													class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+													<p style="float: left;">ORDER LIST</p>
+													<p
+														style="float: left; font-size: xx-small; margin-left: 180px;">주문받은
+														내역을 확인하실 수 있습니다.</p>
+												</a>
+											</div>
+										</li>
+
+										<li class="bor18" sec:authorize="hasAnyRole('ROLE_ADMIN')">
+											<div style="margin-inline-start: 200px;">
+												<a th:href="@{/product/view/my}"
+													class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
+													<p style="float: left;">MY SALE LIST</p>
+													<p
+														style="float: left; font-size: xx-small; margin-left: 170px;">판매
+														중인 물품 내역을 확인하실 수 있습니다.</p>
+												</a>
+											</div>
+										</li>
+
+									</ul>
+								</div>
+							</div>
+						</form>
 
 					</div>
 				</div>

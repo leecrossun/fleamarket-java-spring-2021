@@ -51,6 +51,9 @@ public class OrderDAO {
 			query = em.createNamedQuery("getOrderByOrderId", Order.class);
 			query.setParameter("id", orderId);
 			result = (Order) query.getSingleResult();
+			
+			result.setItem(getItemByOrderId(result.getOrderId()));
+			
 		} catch (NoResultException ex) {
 			System.out.println("fail getOrder");
 			return null;
@@ -67,6 +70,11 @@ public class OrderDAO {
 			query = em.createNamedQuery("getOrderByUserId", Order.class);
 			query.setParameter("id", userId);
 			result = (List<Order>) query.getResultList();
+			
+			for(Order r : result) {
+				r.setItem(getItemByOrderId(r.getOrderId()));
+			}
+			
 		} catch (NoResultException ex) {
 			System.out.println("fail getShoppingList");
 			return null;
@@ -74,7 +82,7 @@ public class OrderDAO {
 		System.out.println("success getShoppingList");
 		return result;
 	}
-	
+
 	@Transactional
 	public List<Order> getOrderBySupplierId(String userId) throws DataAccessException {
 		List<Order> result;
@@ -83,6 +91,11 @@ public class OrderDAO {
 			query = em.createNamedQuery("getOrderBySupplierId", Order.class);
 			query.setParameter("id", userId);
 			result = (List<Order>) query.getResultList();
+			
+			for(Order r : result) {
+				r.setItem(getItemByOrderId(r.getOrderId()));
+			}
+			
 		} catch (NoResultException ex) {
 			System.out.println("fail getShoppingList");
 			return null;
@@ -100,6 +113,23 @@ public class OrderDAO {
 			query = em.createNamedQuery("getItemByItemId", Item.class);
 			query.setParameter("id", itemId);
 			result = (Item) query.getSingleResult();
+		} catch (NoResultException ex) {
+			System.out.println("fail getOrder");
+			return null;
+		}
+		System.out.println("success getOrder");
+		return result;
+	}
+
+	// item
+	@Transactional
+	public List<Item> getItemByOrderId(String orderId) throws DataAccessException {
+		List<Item> result;
+		TypedQuery<Item> query;
+		try {
+			query = em.createNamedQuery("getItemByOrderId", Item.class);
+			query.setParameter("id", orderId);
+			result = (List<Item>) query.getResultList();
 		} catch (NoResultException ex) {
 			System.out.println("fail getOrder");
 			return null;
