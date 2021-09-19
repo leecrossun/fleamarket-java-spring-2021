@@ -15,9 +15,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Resource(name="userDAO")
     private UserDAO userDAO;
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDAO.getUserByUserName(username);
 
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = userDAO.getUserByUserName(s);
         return new UserDetailsImpl(user);
     }
+
 }

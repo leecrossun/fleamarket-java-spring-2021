@@ -154,9 +154,8 @@ th, td {
 									<div class="rs1-select2 bor8 bg0">
 										<div style="margin: 1em; margin: 10px auto;" align='center'>
 											<form th:action="@{/order/create}" method="get">
-												<input type="number" th:name="quentity" placeholder="수량 선택"
-													style="width: 100%; text-align: center;"
-													th:max="${shopping.stock}" th:min="1" /> <input
+												<input type="number" th:name="quantity" placeholder="수량 선택"
+													style="width: 100%; text-align: center;" th:max="${shopping.stock}" th:min="1"/> <input
 													type="hidden" th:name="productId"
 													th:value="${shopping.productId}" />
 										</div>
