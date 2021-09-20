@@ -57,7 +57,7 @@ public class CreateOrdercontroller {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView form(@Valid @ModelAttribute("order") Order order,
-			@RequestParam(defaultValue = "1") int quentity, @RequestParam String productId,
+			@RequestParam(defaultValue = "1") int quantity, @RequestParam String productId,
 			@RequestParam(defaultValue = "1") int type, BindingResult result, SessionStatus status,
 			HttpServletRequest request) {
 
@@ -71,7 +71,7 @@ public class CreateOrdercontroller {
 		User seller = userDAO.getUserByUserId(product.getSupplierId());
 
 		List<Item> items = new ArrayList<Item>();
-		Item item = new Item(null, product, seller, product.getPrice() * quentity, quentity);
+		Item item = new Item(null, product, seller, product.getPrice() * quantity, quantity);
 		items.add(item);
 
 		// Total Price
