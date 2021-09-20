@@ -19,11 +19,10 @@ public class EmailService {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
-        helper.setFrom("Dongduk Fleamarket"); //보내는사람
+        helper.setFrom("somfleamarket@gmail.com"); //보내는사람
         helper.setTo(toEmail); //받는사람
         helper.setSubject(subject);
         helper.setText(message, true);
-
 
         javaMailSender.send(mimeMessage);
     }

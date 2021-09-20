@@ -44,10 +44,13 @@ public class UserService {
         return userdao.deleteUser(userId);
     }
 
-
     // 아이디로 개인정보 가져오기
     public User getUserByUserId(String userId) {
         return userdao.getUserByUserId(userId);
+    }
+
+    public User getUserByUserName(String name){
+        return userdao.getUserByUserName(name);
     }
 
     // 이메일 인증 키 생성
@@ -69,9 +72,10 @@ public class UserService {
     }
 
     // 인증 키 체크
-    public User emailCheck(User user) {
-        String mailKey = user.getCertified();
-        String dbKey = userdao.getUserByUserName(user.getUserName()).getCertified();
+    public User emailCheck(String name, String mailKey) {
+        User user = userdao.getUserByUserName(name);
+        String dbKey = user.getCertified();
+
         if (mailKey.equals(dbKey)){
             return user;
         } else {
