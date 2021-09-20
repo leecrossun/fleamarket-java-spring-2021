@@ -50,6 +50,9 @@ public class User implements Serializable {
 //	@Column(name = "AUTH")
 //	private int auth; // 셀러 or 구매자 -> 0(셀러), 1(구매자)
 
+	@Column(name = "CERTIFIED")
+	private String certified; // 이메일 인증 코드
+
 	@Column(nullable = false, name = "AUTH")
 	@Enumerated(value = EnumType.STRING)
 	private UserRole auth;
@@ -86,7 +89,7 @@ public class User implements Serializable {
 		this.address = address;
 		this.phone = phone;
 		this.email = email;
-		this.auth = UserRole.USER; // 등급은 0 고정 (seller는 관리자가 직접 가입)
+		this.auth = UserRole.USER; // 등급은 0 ㅑ고정 (seller는 관리자가 직접 가입)
 		this.account = account;
 		this.bank = bank;
 		this.accName = accName;

@@ -43,12 +43,12 @@ public class CartController {
 	private CartDAO cartDAO;
 
 	@RequestMapping("/add")
-	protected String add(@RequestParam String shoppingId, Authentication authentication) throws ServletException, IOException {
-		Product shopping = productDAO.getProductByProductId(shoppingId);
+	protected String add(@RequestParam String productId, @RequestParam int quantity, Authentication authentication) throws ServletException, IOException {
+		Product shopping = productDAO.getProductByProductId(productId);
 		Cart cart = new Cart();
 		cart.setCost(shopping.getPrice());
-		cart.setQuantity(1);
-		cart.setProductId(shoppingId);
+		cart.setQuantity(quantity);
+		cart.setProductId(productId);
 
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		User user = userDAO.getUserByUserName(userDetails.getUsername());
