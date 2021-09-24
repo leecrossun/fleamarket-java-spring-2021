@@ -82,7 +82,7 @@ public class CreateOrdercontroller {
 
 		total += product.getDelivery();
 
-		/* Order */ order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
+		order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
 
 		mav.addObject("order", order);
 		mav.setViewName("order/form");
