@@ -153,7 +153,7 @@ th, td {
 							</div>
 						</div>
 
-						<div class="p-t-33" sec:authorize="isAuthenticated()"
+						<div class="p-t-33" sec:authorize="isAuthenticated() and hasAnyRole('ROLE_USER')"
 							th:if="${shopping.stock != 0}">
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">Quantity</div>
