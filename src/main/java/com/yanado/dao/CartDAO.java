@@ -20,6 +20,15 @@ public class CartDAO {
 
 	@Transactional
 	public void createCart(Cart cart) throws DataAccessException {
+//		List<Cart> result;
+//		TypedQuery<Cart> query;
+//		try {
+//			query = em.createNamedQuery("createCart", Cart.class);
+//			query.setParameter("cart", cart);
+//			result = (List<Cart>) query.getResultList();
+//		} catch (NoResultException ex) {
+//			return null;
+//		}
 		em.persist(cart);
 	}
 

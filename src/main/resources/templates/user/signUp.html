@@ -141,6 +141,12 @@
 				}
 			}
 
+			const emailHost = email.split('@');
+			if (emailHost[1] != "dongduk.ac.kr"){
+				alert("동덕여자대학교 웹메일을 입력해주세요.");
+				return;
+			}
+
 			if (accName == ''){
 				alert("계좌주명을 입력하세요.");
 				return;

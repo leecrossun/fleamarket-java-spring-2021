@@ -56,9 +56,10 @@ public class CreateOrdercontroller {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	@ModelAttribute("order")
-	public ModelAndView form(@RequestParam String productId, @RequestParam(defaultValue = "1") int quantity,
-			SessionStatus status, HttpServletRequest request) {
+	public ModelAndView form(@Valid @ModelAttribute("order") Order order,
+			@RequestParam(defaultValue = "1") int quantity, @RequestParam String productId,
+			@RequestParam(defaultValue = "1") int type, BindingResult result, SessionStatus status,
+			HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -81,11 +82,11 @@ public class CreateOrdercontroller {
 
 		total += product.getDelivery();
 
-		Order order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
+		/* Order */ order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
 
 		mav.addObject("order", order);
 		mav.setViewName("order/form");
-		
+
 		return mav;
 	}
 
