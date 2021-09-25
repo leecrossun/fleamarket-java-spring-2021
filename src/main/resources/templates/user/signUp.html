@@ -48,7 +48,6 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
-
 	var chk = false;
 
 	function msg() {
@@ -95,6 +94,22 @@
 		if (password == '') {
 			alert("패스워드를 입력하세요");
 			return;
+		} else {
+			var check1 = /^(?=.*[a-zA-Z])(?=.*[0-9]).{10,12}$/.test(password);   //영문,숫자
+
+			var check2 = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{10,12}$/.test(password);  //영문,특수문자
+
+			var check3 = /^(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{10,12}$/.test(password);  //특수문자, 숫자
+			
+			if(!(check1||check2||check3)){
+
+				alert("* 10자~12자리의 영문(대소문자)+숫자+특수문자 중 2종류 이상을 조합하여 사용할 수 있습니다. \n* 아이디와 중복되는 패스워드는 사용이 불가능 합니다.\n* 동일한 숫자 또는 문자를 3번이상 연속으로 사용할 수 없습니다.");
+				document.getElementById("password").value = '';
+				document.getElementById("passwordcheck").value = '';
+				return;
+
+			}
+
 		}
 
 		if (passcheck == '') {
@@ -127,7 +142,7 @@
 			alert("주소를 검색하세요.");
 			return;
 		}
-		
+
 		if (address2 == '') {
 			alert("상세주소를 입력하세요.");
 			return;
@@ -213,7 +228,6 @@
 			}
 		}).open();
 	}
-	
 </script>
 
 </head>
@@ -259,7 +273,8 @@
 										<div class="size-204 respon6-next">
 											<div class="rs1-select2 bor8 bg0">
 												<input type="text" name="userId" th:field="*{userId}"
-													id="userId" style="padding: 10px; text-align: center; width: 100%"
+													id="userId"
+													style="padding: 10px; text-align: center; width: 100%"
 													th:value="${userId}">
 											</div>
 										</div>
@@ -304,7 +319,8 @@
 										<div class="size-204 respon6-next">
 											<div class="rs1-select2 bor8 bg0">
 												<input type="text" name="userName" th:field="*{userName}"
-													id="userName" style="padding: 10px; text-align: center; width: 100%"
+													id="userName"
+													style="padding: 10px; text-align: center; width: 100%"
 													th:value="${userName}">
 											</div>
 
@@ -317,7 +333,7 @@
 
 										<div class="size-204 respon6-next">
 											<div class="rs1-select2 bor8 bg0">
-												<input type="text" name="phone" id="phone" 
+												<input type="text" name="phone" id="phone"
 													th:field="*{phone}" placeholder="숫자만 입력해주세요"
 													style="padding: 10px; text-align: center; width: 100%"
 													th:value="${phone}">
@@ -334,7 +350,7 @@
 											<div class="rs1-select2 bor8 bg0" style="float: left;">
 												<input type="text" name="addr1" th:field="*{zipCode}"
 													id="addr1" style="padding: 10px; text-align: center"
-													 th:value="${zipCode}" readonly>
+													th:value="${zipCode}" readonly>
 											</div>
 											<div class="rs1-select2 bor8 bg0"
 												style="float: left; border: 0; margin: 10px; margin-top: -5px;">
@@ -358,7 +374,8 @@
 										<div class="size-204 respon6-next" style="margin: 2px;">
 											<div class="rs1-select2 bor8 bg0">
 												<input type="text" name="addr3" th:field="*{address2}"
-													id="addr3" style="padding: 10px; text-align: center; width: 100%"
+													id="addr3"
+													style="padding: 10px; text-align: center; width: 100%"
 													th:value="${address2}" placeholder="상세주소를 입력하세요">
 											</div>
 
@@ -373,7 +390,8 @@
 										<div class="size-204 respon6-next">
 											<div class="rs1-select2 bor8 bg0">
 												<input type="email" name="email" th:field="*{email}"
-													id="email" style="padding: 10px; text-align: center; width: 100%"
+													id="email"
+													style="padding: 10px; text-align: center; width: 100%"
 													th:value="${email}">
 											</div>
 
@@ -415,7 +433,8 @@
 										<div class="size-204 respon6-next">
 											<div class="rs1-select2 bor8 bg0">
 												<input type="text" name="accName" th:field="*{accName}"
-													id="accName" style="padding: 10px; text-align: center; width: 100%"
+													id="accName"
+													style="padding: 10px; text-align: center; width: 100%"
 													th:value="${accName}">
 											</div>
 
