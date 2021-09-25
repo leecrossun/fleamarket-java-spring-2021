@@ -61,20 +61,6 @@ public class MypageController extends HttpServlet {
 
 	}
 
-	// 내가 올린 쇼핑 리스트
-	@RequestMapping("user/list/myProduct")
-	public ModelAndView viewShoppingByUserId(HttpServletRequest request) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String userId = authentication.getName();
-
-		List<Product> shopping = productDAO.getProductBySupplierId(userId);
-		ModelAndView mav = new ModelAndView("shoppingList");
-		mav.setViewName("shopping/myList");
-		mav.addObject("shoppingList", shopping);
-		return mav;
-
-	}
-
 	// 내 주문 리스트
 	@RequestMapping("user/list/order")
 	public ModelAndView viewOrderByUserId(HttpServletRequest request) {

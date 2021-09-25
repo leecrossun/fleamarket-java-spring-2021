@@ -65,15 +65,15 @@ th, td {
 .product_row:hover {
 	background-color: lightgrey;
 }
-
 </style>
 </head>
 <body class="animsition">
 	<div th:replace="/menu :: header"></div>
-	
+
 	<!-- My Product List -->
 	<div align="center" style="margin: 50px;">
 		<table id="a">
+			<th>주문번호</th>
 			<th>제품명</th>
 			<th>총 가격</th>
 			<th>주문 날짜</th>
@@ -81,7 +81,7 @@ th, td {
 				th:onclick="'location.href=\''+ @{/order/view/detail(orderId=${order.orderId})} + '\''">
 				<td th:text="${order.orderId}">test</td>
 				<td th:each="i : ${order.item}">
-					<table style="border:0; width:50%">
+					<table style="border: 0; width: 50%">
 						<tr>
 							<td th:text="${i.product.productName}">test</td>
 							<td th:text="${i.quantity} + '개'">test</td>

@@ -152,11 +152,11 @@ table {  border-spacing: 100px 5px;
 													<tr>
 														<td>Name</td>
 														<td><input type="text"
-															th:field="*{supplier.userName}" /></td>
+															th:field="${order.supplier.userName}" /></td>
 													</tr>
 													<tr>
 														<td>Number</td>
-														<td><input type="text" th:field="*{supplier.phone}" /></td>
+														<td><input type="text" th:field="${order.supplier.phone}" /></td>
 													</tr>
 												</table>
 											</div>
@@ -173,26 +173,26 @@ table {  border-spacing: 100px 5px;
 												<table>
 													<tr>
 														<td>Name</td>
-														<td><input type="text" th:field="*{buyer.userName}"
+														<td><input type="text" th:field="${order.buyer.userName}"
 															id="buyerName" /></td>
 													</tr>
 													<tr>
 														<td>Number</td>
-														<td><input type="text" th:field="*{buyer.phone}"
-															id="buyerPhone" /> <input type="hidden" th:field="*{buyer.address}"
+														<td><input type="text" th:field="${order.buyer.phone}"
+															id="buyerPhone" /> <input type="hidden" th:field="${order.buyer.address}"
 														id="buyerAddress" /></td>
 													</tr>
 													<tr>
 														<td>Bank</td>
-														<td><input type="text" th:field="*{buyer.bank}" /></td>
+														<td><input type="text" th:field="${order.buyer.bank}" /></td>
 													</tr>
 													<tr>
 														<td>Account</td>
-														<td><input type="text" th:field="*{buyer.account}" /></td>
+														<td><input type="text" th:field="${order.buyer.account}" /></td>
 													</tr>
 													<tr>
 														<td>Account Name</td>
-														<td><input type="text" th:field="*{buyer.accName}" /></td>
+														<td><input type="text" th:field="${order.buyer.accName}" /></td>
 													</tr>
 
 												</table>
@@ -214,17 +214,17 @@ table {  border-spacing: 100px 5px;
 													</tr>
 													<tr>
 														<td>Name</td>
-														<td><input type="text" th:field="*{billName}"
+														<td><input type="text" th:field="${order.billName}"
 															id="billName" placeholder="수령인의 이름을 입력하세요" /></td>
 													</tr>
 													<tr>
 														<td>Number</td>
-														<td><input type="text" th:field="*{billPhone}"
+														<td><input type="text" th:field="${order.billPhone}"
 															id="billPhone" placeholder="수령인의 전화번호를 입력하세요" /></td>
 													</tr>
 													<tr>
 														<td>Address</td>
-														<td><input type="text" th:field="*{billAddress}"
+														<td><input type="text" th:field="${order.billAddress}"
 															id="billAddress" placeholder="배송지를 입력하세요" /></td>
 													</tr>
 												</table>
@@ -235,7 +235,7 @@ table {  border-spacing: 100px 5px;
 
 
 									<!-- TotalPrice / PaymentType / Courier / -->
-									<div class="flex-w flex-r-m p-b-10" th:if="${type} != 2">
+									<div class="flex-w flex-r-m p-b-10" >
 										<div class="size-203 flex-c-m respon6">Info</div>
 
 										<div class="size-204 respon6-next">
@@ -243,7 +243,7 @@ table {  border-spacing: 100px 5px;
 												<table>
 													<tr>
 														<td>Total Price</td>
-														<td><input type="text" th:field="*{totalPrice}"
+														<td><input type="text" th:field="${order.totalPrice}"
 															disabled /></td>
 													</tr>
 												</table>

@@ -79,13 +79,14 @@ public class CreateOrdercontroller {
 		for (Item i : items) {
 			total += i.getUnitcost();
 		}
-		
+
 		total += product.getDelivery();
 
 		order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
 
 		mav.addObject("order", order);
 		mav.setViewName("order/form");
+
 		return mav;
 	}
 
@@ -97,16 +98,13 @@ public class CreateOrdercontroller {
 			return "shopping/form";
 		}
 
-	
-		
-
 		List<Item> items = order.getItem();
 		for (Item i : items) {
 			buyerDAO.createBuyer(new Buyer(i.getProduct(), i.getBuyer(), 0));
 			productDAO.updateStockByProductId(i.getProduct().getProductId());
 
 		}
-		
+
 		orderDAO.createOrder(order, order.getItem());
 		System.out.println("createOrder Log");
 
