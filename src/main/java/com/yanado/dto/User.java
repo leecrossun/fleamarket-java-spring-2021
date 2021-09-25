@@ -38,8 +38,14 @@ public class User implements Serializable {
 	@Column(name = "USERNAME")
 	private String userName; // 이름
 
-	@Column(name = "ADDRESS")
-	private String address; // 주소
+	@Column(name = "ADDRESS1")
+	private String address1; // 주소
+	
+	@Column(name = "ADDRESS2")
+	private String address2;
+	
+	@Column(name = "ZIPCODE")
+	private String zipCode;
 
 	@Column(name = "PHONE")
 	private String phone; // 전화번호
@@ -75,18 +81,22 @@ public class User implements Serializable {
 	List<Cart> cart;
 
 	// 마이페이지에서 정보 수정 시 사용
-	public User(String password, String address, String phoneNumber) {
+	public User(String password, String address1, String address2, String zipCode, String phoneNumber) {
 		this.password = password;
-		this.address = address;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.zipCode = zipCode;
 		this.phone = phoneNumber;
 	}
 
 	// 회원 가입 시 사용
-	public User(String userId, String password, String userName, String address, String phone, String email, String account, String bank, String accName) {
+	public User(String userId, String password, String userName, String zipCode, String address1, String address2, String phone, String email, String account, String bank, String accName) {
 		this.userId = userId;
 		this.password = password;
 		this.userName = userName;
-		this.address = address;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.zipCode = zipCode;
 		this.phone = phone;
 		this.email = email;
 		this.auth = UserRole.USER; // 등급은 0 ㅑ고정 (seller는 관리자가 직접 가입)

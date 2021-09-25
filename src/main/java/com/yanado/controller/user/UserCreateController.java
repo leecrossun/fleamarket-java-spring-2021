@@ -19,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.yanado.dao.UserDAO;
 import com.yanado.dto.User;
+import com.yanado.dto.UserRole;
 
 //회원 추가 작업 - 파라미터 받아서 회원 리스트로 넘김
 @Controller
@@ -37,21 +38,10 @@ public class UserCreateController {
 	@RequestMapping(value = "/user/create", method = RequestMethod.POST)
 	protected String service(HttpServletRequest request, SessionStatus status, @ModelAttribute("user") User user)
 			throws ServletException, IOException {
+		
+		user.setAuth(UserRole.USER);
 
-		request.setCharacterEncoding("utf-8");
-
-		String id = request.getParameter("userId");
-		String pwd = request.getParameter("password");
-		String name = request.getParameter("userName");
-		String address = request.getParameter("address");
-		String phone = request.getParameter("phone");
-		String email = request.getParameter("email");
-		String account = request.getParameter("account");
-		String bank = request.getParameter("bank");
-		String accName = request.getParameter("accName");
-
-		User dto = new User(id, pwd, name, address, phone, email, account, bank, accName);
-		userService.createUser(dto);
+		userService.createUser(user);
 		status.setComplete();
 		return "redirect:/user/login";
 	}
