@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import com.yanado.dao.CartDAO;
 import com.yanado.dto.Cart;
+import com.yanado.dto.Cate;
 import com.yanado.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -32,7 +33,6 @@ import com.yanado.dto.Product;
 @RequestMapping("/cart")
 public class CartController {
 
-
 	@Autowired
 	private UserDAO userDAO;
 
@@ -43,7 +43,8 @@ public class CartController {
 	private CartDAO cartDAO;
 
 	@RequestMapping("/add")
-	protected String add(@RequestParam String productId, @RequestParam(defaultValue="1") int quantity, Authentication authentication) throws ServletException, IOException {
+	protected String add(@RequestParam String productId, @RequestParam(defaultValue = "1") int quantity,
+			Authentication authentication) throws ServletException, IOException {
 		Product shopping = productDAO.getProductByProductId(productId);
 		Cart cart = new Cart();
 		cart.setCost(shopping.getPrice());
@@ -56,49 +57,39 @@ public class CartController {
 		cartDAO.createCart(cart);
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/view")
-	protected ModelAndView view(HttpServletRequest request, Authentication authentication) throws ServletException, IOException {
+	protected ModelAndView view(HttpServletRequest request, Authentication authentication)
+			throws ServletException, IOException {
 		ModelAndView mav = new ModelAndView();
 
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		User user = userDAO.getUserByUserName(userDetails.getUsername());
 
 		List<Cart> cartList = cartDAO.getCartListByUserId(user.getUserId());
+		List<Cate> cateList = cartDAO.getSupplierList(user.getUserId());
+		System.out.println(cateList.size());
 		mav.addObject("cartList", cartList);
+		mav.addObject("cateList", cateList);
 		mav.setViewName("shopping/cart");
 		return mav;
-		
-//		List<String> cart = (List<String>)session.getAttribute("cart");
-//
-//		if (session.getAttribute("cart") != null) {
-//			List<Product> shoppingList = new ArrayList<Product>();
-//			for(String s: cart) {
-//				shoppingList.add(productDAO.getProductByProductId(s));
-//			}
-//			mav.addObject("shoppingList", shoppingList);
-//		}
-//		else {
-//			return null;
-//		}
-		
+
 	}
 
 	@RequestMapping("/delete")
-	protected String delete(@RequestParam String shoppingId, HttpServletRequest request, RedirectAttributes red) throws ServletException, IOException {
+	protected String delete(@RequestParam String shoppingId, HttpServletRequest request, RedirectAttributes red)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
-		// 여기 추가
-	
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping("/update")
-	protected String update(@RequestParam String shoppingId, HttpServletRequest request, RedirectAttributes red) throws ServletException, IOException {
+	protected String update(@RequestParam String shoppingId, HttpServletRequest request, RedirectAttributes red)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
+
 		// 여기 추가
-	
+
 		return "redirect:/";
 	}
 
