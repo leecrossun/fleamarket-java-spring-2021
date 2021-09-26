@@ -7,12 +7,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import com.yanado.dto.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yanado.dto.Cart;
+import com.yanado.dto.Cate;
 
 @Service
 public class CartDAO {
@@ -43,17 +43,17 @@ public class CartDAO {
 		return result;
 	}
 
-//	@Transactional
-//	public List<User> getSupplierList(String userId) throws DataAccessException {
-//		List<User> result;
-//		TypedQuery<Cart> query;
-//		try {
-//			query = em.createNamedQuery("getSupplierList", User.class);
-//			query.setParameter("id", userId);
-//			result = query.getResultList();
-//		} catch (NoResultException ex) {
-//			return null;
-//		}
-//		return result;
-//	}
+	@Transactional
+	public List<Cate> getSupplierList(String userId) throws DataAccessException {
+		List<Cate> result;
+		TypedQuery<Cate> query;
+		try {
+			query = em.createNamedQuery("getSupplierList", Cate.class);
+			query.setParameter("id", userId);
+			result = query.getResultList();
+		} catch (NoResultException ex) {
+			return null;
+		}
+		return result;
+	}
 }
