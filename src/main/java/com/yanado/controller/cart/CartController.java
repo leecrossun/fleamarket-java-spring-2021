@@ -58,25 +58,29 @@ public class CartController {
 	}
 	
 	@RequestMapping("/view")
-	protected ModelAndView view(HttpServletRequest request,RedirectAttributes red) throws ServletException, IOException {
-		HttpSession session = request.getSession();
+	protected ModelAndView view(HttpServletRequest request, Authentication authentication) throws ServletException, IOException {
 		ModelAndView mav = new ModelAndView();
+
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		User user = userDAO.getUserByUserName(userDetails.getUsername());
+
+		List<Cart> cartList = cartDAO.getCartListByUserId(user.getUserId());
+		mav.addObject("cartList", cartList);
+		mav.setViewName("shopping/cart");
+		return mav;
 		
-		List<String> cart = (List<String>)session.getAttribute("cart");
-		
-		if (session.getAttribute("cart") != null) {
-			List<Product> shoppingList = new ArrayList<Product>();
-			for(String s: cart) {
-				shoppingList.add(productDAO.getProductByProductId(s));
-			}
-			
-			mav.setViewName("shopping/cart");
-			mav.addObject("shoppingList", shoppingList);
-			return mav;
-		}
-		else {
-			return null;
-		}
+//		List<String> cart = (List<String>)session.getAttribute("cart");
+//
+//		if (session.getAttribute("cart") != null) {
+//			List<Product> shoppingList = new ArrayList<Product>();
+//			for(String s: cart) {
+//				shoppingList.add(productDAO.getProductByProductId(s));
+//			}
+//			mav.addObject("shoppingList", shoppingList);
+//		}
+//		else {
+//			return null;
+//		}
 		
 	}
 

@@ -78,25 +78,26 @@
 								role="tabpanel">
 
 								<div class="how-pos2 p-lr-15-md">
-									<ul th:each="shopping, index : ${shoppingList}"
-										th:onclick="'location.href=\''+ @{/shopping/view/detail(shoppingId=${shopping.shoppingId})} + '\''">
+									<ul th:each="cart, index : ${cartList}"
+										th:onclick="'location.href=\''+ @{/shopping/view/detail(shoppingId=${cart.product.productId})} + '\''">
 										<li class="bor18">
 											<div style="margin-inline-start: 200px;">
 												<a class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
-													<p style="float: left;">마켓명</p>
+													<p >마켓명</p>
+													<p th:text="${cart.product.supplierId}" style="float: left;">마켓명</p>
 												</a>
 												<hr>
 												<a class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
 													<p style="float: left;">제품명</p>
-													<p style="float: left; font-size: xx-small; margin-left: 200px;"></p>
+													<p th:text="${cart.product.productName}" style="float: left; font-size: xx-small; margin-left: 200px;"></p>
 												</a>
 												<a class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
 													<p style="float: left;">수량</p>
-													<p style="float: left; font-size: xx-small; margin-left: 200px;"></p>
+													<p th:text="${cart.quantity}" style="float: left; font-size: xx-small; margin-left: 200px;"></p>
 												</a>
 												<a class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">
 													<p style="float: left;">결제금액</p>
-													<p style="float: left; font-size: xx-small; margin-left: 200px;"></p>
+													<p th:text="${cart.cost}" style="float: left; font-size: xx-small; margin-left: 200px;"></p>
 												</a>
 												<hr>
 												<a class="dis-block stext-115 cl6 hov-cl1 trans-04 p-t-40 p-b-60">

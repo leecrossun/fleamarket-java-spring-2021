@@ -20,7 +20,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "FCART")
-@NamedQueries({@NamedQuery(name = "getCartByUserId", query = "SELECT c FROM Cart c WHERE c.user.userId=:id")})
+@NamedQueries({
+        @NamedQuery(name = "getCartByUserId", query = "SELECT c FROM Cart c WHERE c.user.userId=:id"),
+        @NamedQuery(name = "getSupplierList" , query = "")
+})
 public class Cart implements Serializable {
 
 
@@ -28,17 +31,27 @@ public class Cart implements Serializable {
     @GeneratedValue(generator = "CART_GEN")
     @GenericGenerator(name = "CART_GEN", strategy = "uuid")
     @Column(name = "CARTID")
-    String CartId;
+    private String CartId;
 
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "USERID")
-    User user; // 외래키
+    private User user; // 외래키
 
     @ManyToOne(targetEntity = Product.class)
     @JoinColumn(name = "PRODUCTID")
-    Product product; // 외래키
+    private Product product; // 외래키
 
     int quantity;
     int cost;
 
+    @Transient
+    private String supplierId;
+
+    public void setSupplierId() {
+        this.supplierId = product.getSupplierId();
+    }
+
+    public String getSupplierId() {
+        return product.getSupplierId();
+    }
 }
