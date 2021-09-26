@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import com.yanado.dto.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,35 +21,39 @@ public class CartDAO {
 
 	@Transactional
 	public void createCart(Cart cart) throws DataAccessException {
-//		List<Cart> result;
-//		TypedQuery<Cart> query;
-//		try {
-//			query = em.createNamedQuery("createCart", Cart.class);
-//			query.setParameter("cart", cart);
-//			result = (List<Cart>) query.getResultList();
-//		} catch (NoResultException ex) {
-//			return null;
-//		}
 		em.persist(cart);
 	}
 
 	@Transactional
-	public void deleteBuyer(Cart cart) throws DataAccessException {
+	public void deleteCart(Cart cart) throws DataAccessException {
 		em.remove(cart);
 	}
 
 	@Transactional
-	public List<Cart> getProductByCartId(String userId) throws DataAccessException {
+	public List<Cart> getCartListByUserId(String userId) throws DataAccessException {
 		List<Cart> result;
 		TypedQuery<Cart> query;
 		try {
-			query = em.createNamedQuery("getCartByProductId", Cart.class);
+			query = em.createNamedQuery("getCartByUserId", Cart.class);
 			query.setParameter("id", userId);
-			result = (List<Cart>) query.getResultList();
+			result = query.getResultList();
 		} catch (NoResultException ex) {
 			return null;
 		}
+		return result;
+	}
 
+	@Transactional
+	public List<User> getSupplierList(String userId) throws DataAccessException {
+		List<User> result;
+		TypedQuery<Cart> query;
+		try {
+			query = em.createNamedQuery("getSupplierList", User.class);
+			query.setParameter("id", userId);
+			result = query.getResultList();
+		} catch (NoResultException ex) {
+			return null;
+		}
 		return result;
 	}
 }
