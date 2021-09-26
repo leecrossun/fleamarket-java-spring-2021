@@ -21,8 +21,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "FCART")
 @NamedQueries({
-        @NamedQuery(name = "getCartByUserId", query = "SELECT c FROM Cart c WHERE c.user.userId=:id"),
-        @NamedQuery(name = "getSupplierList" , query = "")
+        @NamedQuery(name = "getCartByUserId", query = "SELECT c FROM Cart c WHERE c.user.userId=:id")/*,
+        @NamedQuery(name = "getSupplierList" , query = "")*/
 })
 public class Cart implements Serializable {
 

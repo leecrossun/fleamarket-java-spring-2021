@@ -43,17 +43,17 @@ public class CartDAO {
 		return result;
 	}
 
-	@Transactional
-	public List<User> getSupplierList(String userId) throws DataAccessException {
-		List<User> result;
-		TypedQuery<Cart> query;
-		try {
-			query = em.createNamedQuery("getSupplierList", User.class);
-			query.setParameter("id", userId);
-			result = query.getResultList();
-		} catch (NoResultException ex) {
-			return null;
-		}
-		return result;
-	}
+//	@Transactional
+//	public List<User> getSupplierList(String userId) throws DataAccessException {
+//		List<User> result;
+//		TypedQuery<Cart> query;
+//		try {
+//			query = em.createNamedQuery("getSupplierList", User.class);
+//			query.setParameter("id", userId);
+//			result = query.getResultList();
+//		} catch (NoResultException ex) {
+//			return null;
+//		}
+//		return result;
+//	}
 }
