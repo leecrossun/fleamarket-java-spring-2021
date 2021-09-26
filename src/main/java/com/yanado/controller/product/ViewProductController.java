@@ -57,16 +57,6 @@ public class ViewProductController {
 		return mav;
 
 	}
-	/*
-	 * // 내가 올린 쇼핑 리스트
-	 * 
-	 * @RequestMapping("/search") public ModelAndView
-	 * searchShoppingByProductName(@RequestParam String p){ List<Shopping> shopping
-	 * = shoppingDAO.getShoppingByProductName("Test"); ModelAndView mav = new
-	 * ModelAndView("shoppingList"); mav.setViewName("shopping/myList");
-	 * mav.addObject("shoppingList", shopping); return mav; }
-	 */
-
 	
 	@RequestMapping("/category")
 	public ModelAndView viewShoppingByCategory(@RequestParam("category") String category) {
