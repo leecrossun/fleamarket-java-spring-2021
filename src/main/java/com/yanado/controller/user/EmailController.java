@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -63,6 +62,7 @@ public class EmailController {
         String name = request.getParameter("username");
         String key = request.getParameter("certified");
         User u = userService.emailCheck(name, key);
+        
 
         if (u != null) {
             userService.emailUpdate(u);
