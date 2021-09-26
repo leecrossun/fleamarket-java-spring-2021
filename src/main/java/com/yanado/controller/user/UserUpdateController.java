@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 
+import com.yanado.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,9 @@ public class UserUpdateController extends HttpServlet {
 	@Autowired
 	private UserDAO userDAO;
 
+	@Autowired
+	private UserService userService;
+
 	@ModelAttribute("user")
 	public User formBacking(HttpServletRequest request) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -50,7 +54,7 @@ public class UserUpdateController extends HttpServlet {
 			return "user/mypageUpdate";
 		}
 
-		int res = userDAO.updateUser(user);
+		int res = userService.updateUser(user);
 
 		System.out.println("userId : " + user.getUserId());
 

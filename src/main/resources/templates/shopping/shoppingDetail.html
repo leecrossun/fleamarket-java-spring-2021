@@ -155,6 +155,7 @@ th, td {
 
 						<div class="p-t-33" sec:authorize="isAuthenticated() and hasAnyRole('ROLE_USER')"
 							th:if="${shopping.stock != 0}">
+							<div th:if="${isCertified} == 'Y'">
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-203 flex-c-m respon6">Quantity</div>
 								<div class="size-204 respon6-next">
@@ -179,7 +180,10 @@ th, td {
 
 								</form>
 
-
+							</div>
+							</div>
+							<div th:unless="${isCertified} == 'Y'">
+								<p>이메일 인증 후 구매가능합니다.</p>
 							</div>
 						</div>
 

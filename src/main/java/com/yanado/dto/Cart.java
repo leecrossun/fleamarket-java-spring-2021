@@ -22,6 +22,7 @@ import lombok.Setter;
 @Table(name = "FCART")
 @NamedQueries({ @NamedQuery(name = "getCartByUserId", query = "SELECT c FROM Cart c WHERE c.user.userId=:id"),
 		@NamedQuery(name = "getSupplierList", query = "select c from Cate c where c.supplierId in (select c1.product.supplierId from Cart c1 where c1.user.userId=:id)") })
+
 public class Cart implements Serializable {
 
 	@Id
