@@ -21,6 +21,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Table(name = "FCART")
 @NamedQueries({ @NamedQuery(name = "getCartByUserId", query = "SELECT c FROM Cart c WHERE c.user.userId=:id"),
+		@NamedQuery(name = "getCartByCartId", query = "SELECT c FROM Cart c WHERE c.cartId=:id"),
+		@NamedQuery(name = "updateQuantityByCartId", query = "UPDATE Cart c set c.quantity=:quantity WHERE c.cartId=:id"),
 		@NamedQuery(name = "getSupplierList", query = "select c from Cate c where c.supplierId in (select c1.product.supplierId from Cart c1 where c1.user.userId=:id)") })
 
 public class Cart implements Serializable {
@@ -29,7 +31,7 @@ public class Cart implements Serializable {
 	@GeneratedValue(generator = "CART_GEN")
 	@GenericGenerator(name = "CART_GEN", strategy = "uuid")
 	@Column(name = "CARTID")
-	private String CartId;
+	private String cartId;
 
 	@ManyToOne(targetEntity = User.class)
 	@JoinColumn(name = "USERID")

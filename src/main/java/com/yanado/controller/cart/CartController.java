@@ -77,20 +77,23 @@ public class CartController {
 	}
 
 	@RequestMapping("/delete")
-	protected String delete(@RequestParam String shoppingId, HttpServletRequest request, RedirectAttributes red)
+	protected String delete(@RequestParam String cartId, HttpServletRequest request, RedirectAttributes red)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		return "redirect:/";
+		
+		Cart cart = cartDAO.getCartByCartId(cartId);
+		cartDAO.deleteCart(cart);
+		
+		
+		return "redirect:/cart/view";
 	}
 
 	@RequestMapping("/update")
-	protected String update(@RequestParam String shoppingId, HttpServletRequest request, RedirectAttributes red)
+	protected String update(@RequestParam String cartId, @RequestParam int quantity, HttpServletRequest request, RedirectAttributes red)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-
-		// 여기 추가
-
-		return "redirect:/";
+		
+		cartDAO.updateQuantityByCartId(cartId, quantity);
+		
+		return "redirect:/cart/view";
 	}
 
 }
