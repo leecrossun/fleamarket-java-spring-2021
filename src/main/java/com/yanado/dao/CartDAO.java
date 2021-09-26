@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.dao.DataAccessException;
@@ -27,6 +28,20 @@ public class CartDAO {
 	@Transactional
 	public void deleteCart(Cart cart) throws DataAccessException {
 		em.remove(cart);
+	}
+	
+	@Transactional
+	public Cart getCartByCartId (String cartId) throws DataAccessException {
+		Cart result;
+		TypedQuery<Cart> query;
+		try {
+			query = em.createNamedQuery("getCartByCartId", Cart.class);
+			query.setParameter("id", cartId);
+			result = query.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
+		return result;
 	}
 
 	@Transactional
@@ -55,5 +70,14 @@ public class CartDAO {
 			return null;
 		}
 		return result;
+	}
+	
+	@Transactional
+	public void updateQuantityByCartId(String cartId, int quantity) {
+		Query query = em.createNamedQuery("updateQuantityByCartId");
+		query.setParameter("id", cartId);
+		query.setParameter("quantity", quantity);
+		query.executeUpdate();
+
 	}
 }
