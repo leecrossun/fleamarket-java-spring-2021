@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yanado.controller.user.UserSessionUtils;
 import com.yanado.dao.BuyerDAO;
 import com.yanado.dao.OrderDAO;
 import com.yanado.dao.ProductDAO;
@@ -57,8 +56,7 @@ public class CreateOrdercontroller {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView form(@Valid @ModelAttribute("order") Order order,
-			@RequestParam(defaultValue = "1") int quantity, @RequestParam String productId,
-			@RequestParam(defaultValue = "1") int type, BindingResult result, SessionStatus status,
+			@RequestParam(defaultValue = "1") int quantity, @RequestParam String productId, BindingResult result, SessionStatus status,
 			HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
@@ -92,6 +90,8 @@ public class CreateOrdercontroller {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String createOrder(@Valid @ModelAttribute("order") Order order, BindingResult result, SessionStatus status) {
+		
+		System.out.println(order.getOrderDate());
 
 		if (result.hasErrors()) {
 			System.out.println(result.getAllErrors());
