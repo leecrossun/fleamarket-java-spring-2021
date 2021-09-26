@@ -4,8 +4,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.yanado.dao.UserDAO;
+import com.yanado.dto.User;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -23,7 +27,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ViewProductController {
 
 	@Autowired
-	public ProductDAO productDAO;
+	private ProductDAO productDAO;
+
+	@Autowired
+	private UserDAO userDAO;
 
 	// 모든 쇼핑 리스트
 	@RequestMapping("/all")
@@ -40,20 +47,19 @@ public class ViewProductController {
 
 	// 쇼핑 상품 상세보기
 	@RequestMapping("/detail")
-	public ModelAndView viewShoppingDetail(HttpServletRequest request, @RequestParam String shoppingId) {
+	public ModelAndView viewShoppingDetail(HttpServletRequest request, @RequestParam String shoppingId, Authentication authentication) {
 		ModelAndView mav = new ModelAndView();
 		Product shopping = productDAO.getProductByProductId(shoppingId);
 
-		UserSessionUtils uSession = new UserSessionUtils();
-		String userId = uSession.getLoginUserId(request.getSession());
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		User user = userDAO.getUserByUserName(userDetails.getUsername());
 		
 		String content = StringEscapeUtils.unescapeHtml(shopping.getContent());
-		System.out.println(content);
 		shopping.setContent(content);
-		System.out.println(shopping.getContent());
 
 		mav.setViewName("shopping/shoppingDetail");
 		mav.addObject("shopping", shopping);
+		mav.addObject("isCertified", user.getCertified());
 		return mav;
 
 	}

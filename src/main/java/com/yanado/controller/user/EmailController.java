@@ -29,10 +29,15 @@ public class EmailController {
     public ModelAndView emailCartificationView(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userService.getUserByUserName(userDetails.getUsername());
-
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("email/emailCertification");
-        mv.addObject("user",user);
+
+        if (user.getCertified().equals("Y")){
+            mv.setViewName("redirect:/");
+        }
+        else {
+            mv.setViewName("email/emailCertification");
+            mv.addObject("user", user);
+        }
         return mv;
     }
 

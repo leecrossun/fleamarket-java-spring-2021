@@ -37,6 +37,15 @@ public class UserService {
     }
 
     public int updateUser(User user) {
+
+        // 암호화
+        String pw = encoder.encode(user.getPassword());
+        user.setPassword(pw);
+
+        // 인증 키 생성
+        String key = certifiedKey();
+        user.setCertified(key);
+
         return userdao.updateUser(user);
     }
 
