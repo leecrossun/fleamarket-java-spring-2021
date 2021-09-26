@@ -48,11 +48,11 @@ public class CartController {
 		Cart cart = new Cart();
 		cart.setCost(shopping.getPrice());
 		cart.setQuantity(quantity);
-		cart.setProductId(productId);
+		cart.setProduct(shopping);
 
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 		User user = userDAO.getUserByUserName(userDetails.getUsername());
-		cart.setUserId(user.getUserId());
+		cart.setUser(user);
 		cartDAO.createCart(cart);
 		return "redirect:/";
 	}
