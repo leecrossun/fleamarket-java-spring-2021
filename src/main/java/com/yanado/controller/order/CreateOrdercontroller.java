@@ -7,28 +7,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import com.yanado.dao.*;
+import com.yanado.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.yanado.dao.BuyerDAO;
-import com.yanado.dao.OrderDAO;
-import com.yanado.dao.ProductDAO;
-import com.yanado.dao.UserDAO;
-import com.yanado.dto.Buyer;
-import com.yanado.dto.Item;
-import com.yanado.dto.Order;
-import com.yanado.dto.Product;
-import com.yanado.dto.User;
 
 @Controller
 @SessionAttributes("order")
@@ -47,11 +35,59 @@ public class CreateOrdercontroller {
 	@Autowired
 	private BuyerDAO buyerDAO;
 
+	@Autowired
+	private CartDAO cartDAO;
+
 	@ModelAttribute("order")
 	public Order formBacking(HttpServletRequest request) {
 		Order order = new Order();
 
 		return order;
+	}
+
+	@PostMapping(value = "/create")
+	public ModelAndView orderForm(){
+		ModelAndView mv = new ModelAndView();
+
+
+		mv.setViewName("order/form");
+		return mv;
+	}
+
+	@RequestMapping(value = "/all")
+	public ModelAndView orderAll(@Valid @ModelAttribute("order") Order order, @RequestParam String cateName){
+		ModelAndView mv = new ModelAndView();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userId = authentication.getName();
+
+		List<Cart> cartList = cartDAO.getCartListByUserId(userId);
+		User buyer = userDAO.getUserByUserId(userId);
+		User seller = userDAO.getUserByUserId(cateName);
+
+		List<Item> items = new ArrayList<Item>();
+		int total = 0;
+
+		for(Cart c : cartList){
+			if (c.getSupplierId().equals(cateName)){
+				Product product = productDAO.getProductByProductId(c.getProduct().getProductId());
+				int quantity = c.getQuantity();
+				total += product.getDelivery();
+				Item item = new Item(null, product, seller, product.getPrice() * quantity, quantity);
+				items.add(item);
+			}
+		}
+
+		for (Item i : items) {
+			total += i.getUnitcost();
+		}
+
+
+		order = new Order(null, seller, buyer, null, null, null, items, total, new Date(), 0, 0);
+
+		mv.addObject("order", order);
+		mv.setViewName("order/form");
+
+		return mv;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
