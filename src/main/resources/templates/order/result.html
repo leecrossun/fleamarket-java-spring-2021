@@ -59,7 +59,7 @@ th, td {
 	border-collapse: collapse;
 	padding: 10px; margin : 10px;
 	box-shadow: 1px 1px solid black;
-	margin: 10px
+	text-align: center
 }
 
 
@@ -73,7 +73,7 @@ th, td {
 	border: 1px solid black !important;
 }
 
-table {  border-spacing: 100px 5px;
+table {  border-spacing: 50px 5px;
   border-collapse: separate;
 }
 
@@ -138,36 +138,30 @@ table {  border-spacing: 100px 5px;
 
 								<!-- Product -->
 								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Product</div>
+										<div class="size-203 flex-c-m respon6">Product</div>
 
-									<div class="size-204 respon6-next"
-										th:each="i, index : ${order.item}">
-										<div class="rs1-select2 bor8 bg0">
-											<table>
-												<tr>
-													<td>Name</td>
-													<td><p th:text="${i.product.productName}"></p></td>
-												</tr>
-												<tr>
-													<td>Price</td>
-													<td><p th:text="${i.product.price}"></p></td>
-												</tr>
-												<tr>
-													<td>Count</td>
-													<td><p th:text="${i.quantity}"></p></td>
-												</tr>
-												<tr>
-													<td>Delivery Fee</td>
-													<td><p th:text="${i.product.delivery}"></p></td>
-												</tr>
-												<tr>
-													<td>Unit Cost</td>
-													<td><p th:text="${i.unitcost}"></p></td>
-												</tr>
-											</table>
+										<div class="size-204 respon6-next">
+											<div class="rs1-select2 bor8 bg0">
+												<table>
+													<tr class="bordered">
+														<td>Product Name</td>
+														<td>Price</td>
+														<td>Quantity</td>
+														<td>Delivery Fee</td>
+														<td>Unit Cost</td>
+													</tr>
+													<tr th:each="i, index : ${order.item}">
+														<td><p th:text="${i.product.productName}"></p></td>
+														<td><p th:text="${i.product.price}"></p></td>
+														<td><p th:text="${i.quantity}"></p></td>
+														<td><p th:text="${i.product.delivery}"></p></td>
+														<td><p th:text="${i.unitcost}"></p></td>
+													</tr>
+												</table>
+											</div>
 										</div>
 									</div>
-								</div>
+
 
 								<!-- 판매자 (name, num, add) -->
 								<div class="flex-w flex-r-m p-b-10">

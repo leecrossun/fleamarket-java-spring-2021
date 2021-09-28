@@ -1,36 +1,118 @@
 <!DOCTYPE html>
 <html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Email인증</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+<link rel="icon" type="image/png"
+	href="../../static/images/icons/favicon.png" />
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/slick/slick.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/MagnificPopup/magnific-popup.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css"
+	href="../../static/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../../static/css/util.css">
+<link rel="stylesheet" type="text/css" href="../../static/css/main.css">
+<!--===============================================================================================-->
+<title>Email인증</title>
 </head>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<div sec:authorize="!isAuthenticated()">
-    <form id="email_form">
-        <input type="hidden" name="certified" value="${user.certified}">
-        <input type="hidden" name="userName" value="${user.userName}">
-    </form>
-</div>
+	<div class="container">
+		<div class="row">
 
-<button id="email_send_buttton">이메일 인증하기</button>
+			<div class="col-md-6 col-lg-5 p-b-30">
+				<div class="p-r-50 p-t-5 p-lr-0-lg">
 
-<script type="text/javascript">
-    $('#email_send_buttton').on(
-        'click',
-        function() {
-            $.ajax({
-                url : "/user/email/send",
-                type : "GET",
-                data : $("#email_form").serialize(),
-                success : function(data) {
-                    alert("이메일이 전송되었습니다.")
-                },
-                error : function(e) {
-                    console.log(e);
-                }
-            });
-        });
-</script>
+					<div class="p-t-33"></div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="bor10 m-t-50 p-t-43 p-b-40">
+			<!-- Tab01 -->
+			<div class="tab01">
+				<!-- Nav tabs -->
+
+
+				<!-- Tab panes -->
+				<div class="tab-content p-t-43" align='center'>
+
+					<div class="tab-pane fade show active" id="description"
+						role="tabpanel" align='center'>
+
+						<div class="how-pos2 p-lr-15-md" align='center'>
+
+							<script
+								src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+							<div class="how-pos2 p-lr-15-md">
+								<div sec:authorize="!isAuthenticated()" align='center'>
+									<form id="email_form">
+										<input type="hidden" name="certified"
+											value="${user.certified}"> <input type="hidden"
+											name="userName" value="${user.userName}">
+									</form>
+								</div>
+
+								<button id="email_send_buttton"
+									class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">이메일
+									인증하기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<ul class="nav nav-tabs" role="tablist">
+
+					<li class="nav-item p-b-10" style="margin-top: 35px;">약 10초 후
+						이메일을 확인해 주세요</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$('#email_send_buttton').on('click', function() {
+			$.ajax({
+				url : "/user/email/send",
+				type : "GET",
+				data : $("#email_form").serialize(),
+				success : function(data) {
+					alert("이메일이 전송되었습니다.")
+				},
+				error : function(e) {
+					console.log(e);
+				}
+			});
+		});
+	</script>
 </body>
 </html>

@@ -19,7 +19,6 @@ import com.yanado.controller.user.UserSessionUtils;
 import com.yanado.dao.ProductDAO;
 import com.yanado.dto.Product;
 
-
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -40,30 +39,38 @@ public class ViewProductController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shopping/shoppingList");
 		mav.addObject("shoppingList", shopping);
-		
+
 		return mav;
 
 	}
 
 	// 쇼핑 상품 상세보기
 	@RequestMapping("/detail")
-	public ModelAndView viewShoppingDetail(HttpServletRequest request, @RequestParam String shoppingId, Authentication authentication) {
+	public ModelAndView viewShoppingDetail(HttpServletRequest request, @RequestParam String shoppingId,
+			Authentication authentication) {
 		ModelAndView mav = new ModelAndView();
-		Product shopping = productDAO.getProductByProductId(shoppingId);
-
-		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		User user = userDAO.getUserByUserName(userDetails.getUsername());
-		
-		String content = StringEscapeUtils.unescapeHtml(shopping.getContent());
-		shopping.setContent(content);
-
 		mav.setViewName("shopping/shoppingDetail");
+		Product shopping = productDAO.getProductByProductId(shoppingId);
+		
+		String s = StringEscapeUtils.unescapeHtml(shopping.getContent());
+		shopping.setContent(s);
+		
 		mav.addObject("shopping", shopping);
-		mav.addObject("isCertified", user.getCertified());
+		
+		if (authentication != null) {
+			UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+			User user = userDAO.getUserByUserName(userDetails.getUsername());
+
+			String content = StringEscapeUtils.unescapeHtml(shopping.getContent());
+			shopping.setContent(content);
+
+			mav.addObject("isCertified", user.getCertified());
+		}
+		
 		return mav;
 
 	}
-	
+
 	@RequestMapping("/category")
 	public ModelAndView viewShoppingByCategory(@RequestParam("category") String category) {
 		List<Product> shopping = productDAO.getProductByCategory(category);

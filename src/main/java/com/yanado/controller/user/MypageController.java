@@ -76,6 +76,23 @@ public class MypageController extends HttpServlet {
 		return mav;
 
 	}
+	
+	// 내 주문 리스트 - 결제 X
+		@RequestMapping("user/list/notPay")
+		public ModelAndView viewOrderByUserIdNPay(HttpServletRequest request) {
+			ModelAndView mav = new ModelAndView();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String userId = authentication.getName();
+
+			List<Order> order = (List<Order>) orderDAO.getOrderByUserIdNPay(userId);
+
+			mav.setViewName("order/myList");
+			mav.addObject("type", "pay");
+			mav.addObject("orderList", order);
+
+			return mav;
+
+		}
 
 	// 내 주문 받은
 	@RequestMapping("seller/list/order")
@@ -92,6 +109,23 @@ public class MypageController extends HttpServlet {
 		return mav;
 
 	}
+	
+	// 내 주문 받은
+		@RequestMapping("seller/list/notPay")
+		public ModelAndView viewOrderBySupplierIdNPay(HttpServletRequest request) {
+			ModelAndView mav = new ModelAndView();
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String userId = authentication.getName();
+
+			List<Order> order = (List<Order>) orderDAO.getOrderBySupplierIdNPay(userId);
+
+			mav.setViewName("order/supplierList");
+			mav.addObject("orderList", order);
+			mav.addObject("type", "pay");
+
+			return mav;
+
+		}
 
 	@RequestMapping("order/view/detail")
 	public ModelAndView viewDetailOrder(@RequestParam String orderId) {
