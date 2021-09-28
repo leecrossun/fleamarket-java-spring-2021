@@ -58,10 +58,10 @@
 th, td {
 	font-size: 15px;
 	border-collapse: collapse;
-	padding: 10px;
-	margin: 10px;
 	box-shadow: 1px 1px solid black;
-	margin: 10px
+	text-align: center;
+	margin: 10px;
+	padding: 10px;
 }
 
 .submit_btn {
@@ -75,8 +75,12 @@ th, td {
 }
 
 table {
-	border-spacing: 100px 5px;
+	border-spacing: 50px 2px;
 	border-collapse: separate;
+}
+
+tr.bordered {
+	border-bottom: 1px solid lightgrey;
 }
 </style>
 <script
@@ -145,28 +149,21 @@ table {
 									<div class="flex-w flex-r-m p-b-10">
 										<div class="size-203 flex-c-m respon6">Product</div>
 
-										<div class="size-204 respon6-next"
-											th:each="i, index : ${order.item}">
+										<div class="size-204 respon6-next">
 											<div class="rs1-select2 bor8 bg0">
 												<table>
-													<tr>
-														<td>Product Name</td>
+													<tr class="bordered">
+														<th>Product Name</th>
+														<th>Price</th>
+														<th>Quantity</th>
+														<th>Delivery Fee</th>
+														<th>Unit Cost</th>
+													</tr>
+													<tr th:each="i, index : ${order.item}">
 														<td><p th:text="${i.product.productName}"></p></td>
-													</tr>
-													<tr>
-														<td>Price</td>
 														<td><p th:text="${i.product.price}"></p></td>
-													</tr>
-													<tr>
-														<td>Quantity</td>
 														<td><p th:text="${i.quantity}"></p></td>
-													</tr>
-													<tr>
-														<td>Delivery Fee</td>
 														<td><p th:text="${i.product.delivery}"></p></td>
-													</tr>
-													<tr>
-														<td>Unit Cost</td>
 														<td><p th:text="${i.unitcost}"></p></td>
 													</tr>
 												</table>
@@ -243,32 +240,35 @@ table {
 									<!-- 수령자 (name, num, add) -->
 									<div class="flex-w flex-r-m p-b-10">
 										<div class="size-203 flex-c-m respon6">Receiver</div>
-								
+
 										<div class="size-204 respon6-next">
 											<div class="rs1-select2 bor8 bg0">
-												<table style="width: 100%">
-													<tr>
+												<table
+													style="width: 100%; margin-top: 30px; text-align: center">
+													<tr style="margin-bottom: 10px;">
 														<td>본인 정보로 하기</td>
 														<td><input type="checkbox" id="info" name="info" /></td>
 													</tr>
 													<tr>
 														<td>Name</td>
 														<td><input type="text" th:field="${order.billName}"
-															id="billName" placeholder="수령인의 이름을 입력하세요" /></td>
+															style="width: 100%;" id="billName"
+															placeholder="수령인의 이름을 입력하세요" /></td>
 													</tr>
 													<tr>
 														<td>Number</td>
 														<td><input type="text" th:field="${order.billPhone}"
-															id="billPhone" placeholder="수령인의 전화번호를 입력하세요" /></td>
+															style="width: 100%;" id="billPhone"
+															placeholder="수령인의 전화번호를 입력하세요" /></td>
 													</tr>
 													<tr>
 														<td>Address</td>
 														<td><input type="text" id="billAddress"
-															style="width: 120%" placeholder="배송지를 입력하세요" readonly />
+															placeholder="배송지를 입력하세요" readonly style="width: 100%;" />
 															<br> <input type="text" id="billAddress2"
 															placeholder="상세배송지를 입력하세요" /></td>
 														<input type="hidden" th:field="${order.billAddress}"
-															id="billAddr" />
+															style="width: 100%;" id="billAddr" />
 
 													</tr>
 													<tr>
@@ -289,12 +289,11 @@ table {
 										<div class="size-203 flex-c-m respon6">Info</div>
 
 										<div class="size-204 respon6-next">
-											<div class="rs1-select2 bor8 bg0">
+											<div class="rs1-select2 bor8 bg0" style="font-size: 20px">
 												<table>
 													<tr>
-														<td>Total Price</td>
-														<td><input type="text" th:field="${order.totalPrice}"
-															disabled /></td>
+														<td><b>Total Price</b></td>
+														<td><b th:text="${order.totalPrice}"></b></td>
 													</tr>
 												</table>
 											</div>
@@ -629,41 +628,46 @@ table {
 
 												}
 											});
-							
-							$("#submitBtn").click (
-									function() {
-										var addr = $("#billAddr").val();
-										
-										if($("#billName").val() == ''){
-											alert('수령인의 이름을 입력하세요');
-											return false;
-										}
-										
-										if($("#billPhone").val() == ''){
-											alert('수령인의 전화번호를 입력하세요');
-											return false;
-										}
 
-										if($("#billAddress").val() == ''){
-											alert('수령인의 주소를 검색하세요');
-											return false;
-										}
-										
+							$("#submitBtn")
+									.click(
+											function() {
+												var addr = $("#billAddr").val();
 
-										if($("#billAddress2").val() == '' && !($("#info").is(":checked"))){
-											alert('수령인의 상세주소를 입력하세요');
-											return false;
-										}
-										
-										
-										if(addr == ''){
-											var add = $("#billAddress").val() + " "+ $("#billAddress2").val();
-											$("#billAddress").val(add);
-										}
-										
-										$("#frm").submit();
-							
-									});
+												if ($("#billName").val() == '') {
+													alert('수령인의 이름을 입력하세요');
+													return false;
+												}
+
+												if ($("#billPhone").val() == '') {
+													alert('수령인의 전화번호를 입력하세요');
+													return false;
+												}
+
+												if ($("#billAddress").val() == '') {
+													alert('수령인의 주소를 검색하세요');
+													return false;
+												}
+
+												if ($("#billAddress2").val() == ''
+														&& !($("#info")
+																.is(":checked"))) {
+													alert('수령인의 상세주소를 입력하세요');
+													return false;
+												}
+
+												if (addr == '') {
+													var add = $("#billAddress")
+															.val()
+															+ " "
+															+ $("#billAddress2")
+																	.val();
+													$("#billAddress").val(add);
+												}
+
+												$("#frm").submit();
+
+											});
 						}
 
 				);

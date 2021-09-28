@@ -50,7 +50,6 @@
 <!--===============================================================================================-->
 <style>
 table {
-	/* width: 60%; */
 	border-top: 1px solid #444444;
 	border-collapse: collapse;
 	text-align: center;
@@ -59,7 +58,7 @@ table {
 
 th, td {
 	border-bottom: 1px solid #444444;
-	padding: 15px;
+	padding: 5px;
 	text-align: center;
 }
 </style>
@@ -83,6 +82,12 @@ th, td {
 </head>
 <body class="animsition">
 	<div th:replace="/menu :: header"></div>
+	
+	<div align="center" th:if="${type != 'pay'}"
+		class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
+		style="margin-top: 30px; width: 10%; float: center;background-color: #dcdcdc; text-align: center; margin-left: 75%;border-radius: 10px">
+		<a th:href="@{/seller/list/notPay}" style="color: black">입금 대기 명단 확인</a>
+	</div>
 
 	<!-- My Product List -->
 	<div align="center" style="margin: 50px;">
@@ -96,17 +101,18 @@ th, td {
 			<tr class="product_row" th:each="order, index : ${orderList}">
 				<td th:text="${order.orderId}">test</td>
 				<td th:text="${order.buyer.userName}">test</td>
-				<td th:each="i : ${order.item}">
-					<table style="border: 0;">
-						<tr>
+				<td style="float:center">
+					<table style="border: 0; width: 50%; text-align: center; margin: auto; padding:3px;">
+						<tr th:each="i : ${order.item}">
 							<td th:text="${i.product.productName}">test</td>
 							<td th:text="${i.quantity} + '개'">test</td>
+						</tr>
 					</table>
 				</td>
 
 				<td th:text="${order.totalPrice}">test</td>
 				<td th:text="${order.orderDate}">test</td>
-				<td><input type="checkbox" id="pay" name="pay"
+				<td><input type="checkbox" id="pay" name="pay" style="margin:auto"
 					th:checked="${order.payment == 1}"
 					th:onchange="update([[${order.orderId}]])" /></td>
 			</tr>

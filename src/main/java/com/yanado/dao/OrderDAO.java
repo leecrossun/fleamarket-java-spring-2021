@@ -138,6 +138,49 @@ public class OrderDAO {
 		System.out.println("success getOrder");
 		return result;
 	}
+	
+	
+	@Transactional
+	public List<Order> getOrderByUserIdNPay(String userId) throws DataAccessException {
+		List<Order> result;
+		TypedQuery<Order> query;
+		try {
+			query = em.createNamedQuery("getOrderByUserIdNPay", Order.class);
+			query.setParameter("id", userId);
+			result = (List<Order>) query.getResultList();
+
+			for (Order r : result) {
+				r.setItem(getItemByOrderId(r.getOrderId()));
+			}
+
+		} catch (NoResultException ex) {
+			System.out.println("fail getShoppingList");
+			return null;
+		}
+		System.out.println("success getShoppingList");
+		return result;
+	}
+	
+	@Transactional
+	public List<Order> getOrderBySupplierIdNPay(String userId) throws DataAccessException {
+		List<Order> result;
+		TypedQuery<Order> query;
+		try {
+			query = em.createNamedQuery("getOrderBySupplierIdNPay", Order.class);
+			query.setParameter("id", userId);
+			result = (List<Order>) query.getResultList();
+
+			for (Order r : result) {
+				r.setItem(getItemByOrderId(r.getOrderId()));
+			}
+
+		} catch (NoResultException ex) {
+			System.out.println("fail getShoppingList");
+			return null;
+		}
+		System.out.println("success getShoppingList");
+		return result;
+	}
 
 	@Transactional
 	public void updatePaymentByOrderId(String orderId, int payment) {

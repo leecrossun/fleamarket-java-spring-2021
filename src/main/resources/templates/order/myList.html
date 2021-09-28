@@ -50,7 +50,7 @@
 <!--===============================================================================================-->
 <style>
 table {
-	width: 60%;
+	width: 80%;
 	border-top: 1px solid #444444;
 	border-collapse: collapse;
 	text-align: center;
@@ -58,7 +58,7 @@ table {
 
 th, td {
 	border-bottom: 1px solid #444444;
-	padding: 15px;
+	padding: 5px;
 	text-align: center;
 }
 
@@ -69,6 +69,12 @@ th, td {
 </head>
 <body class="animsition">
 	<div th:replace="/menu :: header"></div>
+	
+	<div align="center" th:if="${type != 'pay'}"
+		class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
+		style="margin-top: 30px; width: 10%; float: center;background-color: #dcdcdc; text-align: center; margin-left: 75%;border-radius: 10px">
+		<a th:href="@{/user/list/notPay}" style="color: black">입금 대기</a>
+	</div>
 
 	<!-- My Product List -->
 	<div align="center" style="margin: 50px;">
@@ -77,20 +83,29 @@ th, td {
 			<th>제품명</th>
 			<th>총 가격</th>
 			<th>주문 날짜</th>
+			<th>입금</th>
+
 			<tr class="product_row" th:each="order, index : ${orderList}"
 				th:onclick="'location.href=\''+ @{/order/view/detail(orderId=${order.orderId})} + '\''">
 				<td th:text="${order.orderId}">test</td>
-				<td th:each="i : ${order.item}">
-					<table style="border: 0; width: 50%">
-						<tr>
+
+				<td>
+					<table style="border: 0; width: 50%; margin: auto; padding: 3px;">
+						<tr th:each="i : ${order.item}">
 							<td th:text="${i.product.productName}">test</td>
 							<td th:text="${i.quantity} + '개'">test</td>
+						</tr>
 					</table>
 				</td>
 
 				<td th:text="${order.totalPrice}">test</td>
 				<td th:text="${order.orderDate}">test</td>
+				<td><th:block th:switch="${order.payment}">
+						<span th:case="1">O</span>
+						<span th:case="0">X</span>
+					</th:block></td>
 			</tr>
+
 		</table>
 	</div>
 

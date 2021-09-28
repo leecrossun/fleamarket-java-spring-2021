@@ -35,7 +35,9 @@ import lombok.Setter;
 @NamedQueries({ @NamedQuery(name = "getOrderByOrderId", query = "SELECT o FROM Order o WHERE o.orderId=:id"),
 		@NamedQuery(name = "getOrderByUserId", query = "SELECT o FROM Order o WHERE o.buyer.userId=:id"),
 		@NamedQuery(name = "getOrderBySupplierId", query = "SELECT o FROM Order o WHERE o.supplier.userId=:id"),
-		@NamedQuery(name = "updatePaymentByOrderId", query = "UPDATE Order o SET o.payment = :payment WHERE o.orderId=:id")
+		@NamedQuery(name = "updatePaymentByOrderId", query = "UPDATE Order o SET o.payment = :payment WHERE o.orderId=:id"),
+		@NamedQuery(name = "getOrderByUserIdNPay", query = "SELECT o FROM Order o WHERE o.buyer.userId=:id and o.payment=0"),
+		@NamedQuery(name = "getOrderBySupplierIdNPay", query = "SELECT o FROM Order o WHERE o.supplier.userId=:id and o.payment=0")
 
 })
 @Table(name = "FORDER")
