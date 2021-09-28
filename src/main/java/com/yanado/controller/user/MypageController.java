@@ -55,6 +55,9 @@ public class MypageController extends HttpServlet {
 
 		request.setAttribute("user", dto);
 
+		System.out.println("user : " + dto.getCertified());
+
+
 		mav.setViewName("user/mypageMain");
 		mav.addObject("user", dto);
 		return mav;
