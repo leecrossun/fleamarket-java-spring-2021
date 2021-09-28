@@ -101,7 +101,7 @@ table {  border-spacing: 50px 5px;
 			<div class="bor10 m-t-50 p-t-43 p-b-40">
 				<div class="tab01">
 					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item p-b-10">Order Confirmation</li>
+						<li class="nav-item p-b-10">주문 내역</li>
 					</ul>
 					<div class="tab-content p-t-43" align='center'>
 						<div class="tab-pane fade show active" id="description"
@@ -109,26 +109,26 @@ table {  border-spacing: 50px 5px;
 
 							<div class="how-pos2 p-lr-15-md">
 								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Info</div>
+									<div class="size-203 flex-c-m respon6">결제 정보</div>
 
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
 											<table id="info">
 												<tr>
-													<td>Total Price</td>
+													<td>총 결제 금액</td>
 													<td><p th:text="${order.totalPrice}"></p></td>
 												</tr>
 												<tr>
-													<td>입금 은행</td>
+													<td>은행</td>
 													<td><p th:text="${order.supplier.bank}"></p></td>
 												</tr>
 												<tr>
-													<td>입금주</td>
-													<td><p th:text=" ${order.supplier.accName} "></p></td>
+													<td>계좌</td>
+													<td><p th:text="${order.supplier.account}"></p></td>
 												</tr>
 												<tr>
-													<td>입금 계좌</td>
-													<td><p th:text="${order.supplier.account}"></p></td>
+													<td>예금주명</td>
+													<td><p th:text=" ${order.supplier.accName} "></p></td>
 												</tr>
 											</table>
 										</div>
@@ -138,17 +138,17 @@ table {  border-spacing: 50px 5px;
 
 								<!-- Product -->
 								<div class="flex-w flex-r-m p-b-10">
-										<div class="size-203 flex-c-m respon6">Product</div>
+										<div class="size-203 flex-c-m respon6">상품 정보</div>
 
 										<div class="size-204 respon6-next">
 											<div class="rs1-select2 bor8 bg0">
 												<table>
 													<tr class="bordered">
-														<td>Product Name</td>
-														<td>Price</td>
-														<td>Quantity</td>
-														<td>Delivery Fee</td>
-														<td>Unit Cost</td>
+														<td>상품명</td>
+														<td>가격</td>
+														<td>수량</td>
+														<td>배송비</td>
+														<td>결제 금액</td>
 													</tr>
 													<tr th:each="i, index : ${order.item}">
 														<td><p th:text="${i.product.productName}"></p></td>
@@ -165,17 +165,17 @@ table {  border-spacing: 50px 5px;
 
 								<!-- 판매자 (name, num, add) -->
 								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Seller</div>
+									<div class="size-203 flex-c-m respon6">판매자 정보</div>
 
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
 											<table>
 												<tr>
-													<td>Name</td>
+													<td>마켓 이름</td>
 													<td><p th:text="${order.supplier.userName}"></p></td>
 												</tr>
 												<tr>
-													<td>Number</td>
+													<td>마켓 연락처</td>
 													<td><p th:text="${order.supplier.phone}"></p></td>
 												</tr>
 											</table>
@@ -186,17 +186,17 @@ table {  border-spacing: 50px 5px;
 
 								<!-- 구매자 (name, num, add) -->
 								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Buyer</div>
+									<div class="size-203 flex-c-m respon6">주문자 정보</div>
 
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
 											<table>
 												<tr>
-													<td>Name</td>
+													<td>이름</td>
 													<td><p th:text="${order.buyer.userName}"></p></td>
 												</tr>
 												<tr>
-													<td>Number</td>
+													<td>연락처</td>
 													<td><p th:text="${order.buyer.phone}"></p></td>
 												</tr>
 
@@ -208,21 +208,21 @@ table {  border-spacing: 50px 5px;
 
 								<!-- 수령자 (name, num, add) -->
 								<div class="flex-w flex-r-m p-b-10">
-									<div class="size-203 flex-c-m respon6">Receiver</div>
+									<div class="size-203 flex-c-m respon6">배송지 정보</div>
 
 									<div class="size-204 respon6-next">
 										<div class="rs1-select2 bor8 bg0">
 											<table>
 												<tr>
-													<td>Name</td>
+													<td>받으실 분</td>
 													<td><p th:text="${order.billName}"></p></td>
 												</tr>
 												<tr>
-													<td>Number</td>
+													<td>연락처</td>
 													<td><p th:text="${order.billPhone}"></p></td>
 												</tr>
 												<tr>
-													<td>Address</td>
+													<td>주소</td>
 													<td><p th:text="${order.billAddress}"></p></td>
 												</tr>
 											</table>
@@ -235,7 +235,7 @@ table {  border-spacing: 50px 5px;
 
 								<div class="flex-w flex-r-m p-b-10">
 									<a th:href="@{/}"
-										class="submit_btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">Main</a>
+										class="submit_btn flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">메인 화면으로 돌아가기</a>
 								</div>
 
 							</div>
