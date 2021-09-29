@@ -143,27 +143,31 @@
 			<div class="p-b-10" >
 				<div class="row isotope-grid" >
 					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women"
-						th:if="${not #lists.isEmpty(favoriteList) && favoriteList != null }"
-						th:each="favorite, index : ${favoriteList}" >
-						<!-- Block2 -->
-						<div class="block2" >
+						th:each="cate, index : ${session.cateList}">
+						
+						<!-- -------------------------------------------------------------------------------------------------------------------- -->
+						
+						<div class="block2" style="text-align:center;">
 
 							<div class="block2-pic hov-img0" >
-								<img th:src="${favorite.product.image}" alt="IMG-PRODUCT" style="width: 300px; height: auto;" >
-								<a th:href="@{/shopping/view/detail(shoppingId=${favorite.fav.typeId})}" th:if="${favorite.fav.type} == 1"
+								<img alt="IMG-PRODUCT" style="width: 300px; height: auto;" src="../static/productImage/aaa.jpg">
+								<a th:href="@{/shopping/view/category(category=${cate.cateId})}"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 									Quick View </a>
 							</div>
 
-							<div class="block2-txt flex-w flex-t p-t-14"  >
-								<div class="block2-txt-child1 flex-col-l" style="text-align: center;">
-									<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" style="font-weight:bold; text-align:center; width: 300px"
-										th:text="${favorite.product.productName}"  th:href="@{/shopping/view/detail(shoppingId=${favorite.fav.typeId})}"> </a>
+							<div class="block2-txt flex-w flex-t p-t-14" style="text-align: center;margin:auto;">
+								<div class="block2-txt-child1 flex-col-l" style="text-align: center;margin: auto;">
+									<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" style="font-weight:bolder; text-align:center; width: 300px;" 
+										th:text="${cate.cateName}"  th:href="@{/shopping/view/category(category=${cate.cateId})}"> </a>
 								</div>
 							</div>
 
 						</div>
-					</div>
+						
+						<!-- -------------------------------------------------------------------------------------------------------------------- -->
+						
+					</div> 
 
 				</div>
 			</div>

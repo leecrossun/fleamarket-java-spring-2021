@@ -47,6 +47,11 @@
 <link rel="stylesheet" type="text/css" href="../static/css/util.css">
 <link rel="stylesheet" type="text/css" href="../static/css/main.css">
 <!--===============================================================================================-->
+<style>
+td {
+	
+}
+</style>
 </head>
 <body class="animsition">
 
@@ -65,74 +70,48 @@
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
-							<li><a href="#" th:href="@{/shopping/view/all}">Shopping</a>
+							<li><a th:href="@{/shopping/view/all}">Shopping</a>
 								<ul class="sub-menu">
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										A</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										B</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										C</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										D</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										E</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										F</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										G</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										H</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										J</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										X</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										Y</a></li>
-									<li><a
-											th:href="@{/shopping/view/category(category=${'shopping'})}">Shopping
-										Z</a></li>
-
+									<li th:each="cate, index : ${session.cateList}"><a style="color: black;"
+										th:href="@{/shopping/view/category(category=${cate.cateId})}"
+										th:text="${cate.cateName}"> </a></li>
 								</ul></li>
 
 							<li sec:authorize="isAuthenticated()"><a
-									th:href="@{/user/mypageMain}">MyPage</a></li>
+								th:href="@{/user/mypageMain}">MyPage</a></li>
 						</ul>
 					</div>
 					<!-- Icon header -->
 					<div class="wrap-icon-header flex-w flex-r-m">
-						<div sec:authorize="!isAuthenticated()" class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">
+						<div sec:authorize="!isAuthenticated()"
+							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">
 							<a th:href="@{/user/login}" style="color: black">LogIn</a>
 						</div>
-						<div class="flex-c-m stext-106 cl6 size-105" sec:authorize="isAuthenticated()" style="margin: 10px;">
+						<div class="flex-c-m stext-106 cl6 size-105"
+							sec:authorize="isAuthenticated()" style="margin: 10px;">
 							<p sec:authentication="principal.username"></p>
 						</div>
 						<div sec:authorize="hasAnyRole('ROLE_USER')"
-							 class="flex-c-m stext-106 cl6 size-105" style="margin: 10px;">
-							일반사용자입니다.
-						</div>
+							class="flex-c-m stext-106 cl6 size-105" style="margin: 10px;">
+							일반사용자입니다.</div>
 						<div sec:authorize="hasAnyRole('ROLE_ADMIN')"
-							 class="flex-c-m stext-106 cl6 size-105" style="margin: 10px;">
-							관리자입니다.
-						</div>
+							class="flex-c-m stext-106 cl6 size-105" style="margin: 10px;">
+							관리자입니다.</div>
 						<div sec:authorize="isAuthenticated()"
-							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">
+							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4">
 							<a th:href="@{/user/logout}" style="color: black">LogOut</a>
 						</div>
 						<div sec:authorize="isAuthenticated()"
-							 class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4" style="margin: 10px;">
+							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
+							style="margin: 10px;">
 							<a th:href="@{/cart/view}" style="color: black">Cart</a>
+						</div>
+
+						<div th:if="${isCertified != 'Y'}"
+							sec:authorize="isAuthenticated() and hasAnyRole('ROLE_USER')"
+							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
+							style="margin: 10px;">
+							<a th:href="@{/user/email/view}" style="color: black">이메일인증</a>
 						</div>
 					</div>
 				</nav>

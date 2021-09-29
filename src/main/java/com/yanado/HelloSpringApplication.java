@@ -1,8 +1,10 @@
 package com.yanado;
 
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.aspectj.lang.annotation.Before;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -12,9 +14,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.scheduling.annotation.EnableScheduling;
+
 
 @SpringBootApplication
 @RestController
@@ -26,6 +30,7 @@ public class HelloSpringApplication extends SpringBootServletInitializer{
 	  return application.sources(HelloSpringApplication.class);
 	  }
 	public static void main(String[] args) {
+
 		SpringApplication.run(HelloSpringApplication.class, args);
 	}
 
@@ -42,5 +47,6 @@ public class HelloSpringApplication extends SpringBootServletInitializer{
 	public SqlSessionTemplate sqlSession(SqlSessionFactory factory) {
 		return new SqlSessionTemplate(factory);
 	}
-
+	
+	
 }

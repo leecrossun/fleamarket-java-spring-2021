@@ -108,7 +108,7 @@ public class CreateProductController {
 	}
 
 	@RequestMapping("/cancel")
-	public String cancel(@RequestParam String shoppingId, SessionStatus status, RedirectAttributes red) {
+	public String cancel(SessionStatus status, RedirectAttributes red) {
 
 		status.setComplete();
 
