@@ -79,13 +79,14 @@
 
 <!-- My Product List -->
 <div align="center"
-     style="margin: 0 auto; margin-top: 30px; border: 1px solid lightgrey; padding: 30px; border-radius: 10px; width: 80%; float: center"
+     style="margin: 0 auto; margin-top: 30px; border: 1px solid lightgrey; padding: 30px; border-radius: 10px; width: 60%; float: center"
      th:each="cate, index : ${cateList}">
-    <div id="cateName" th:text="${cate.cateName}"></div>
+    <div id="cateName" th:text="${cate.cateName}" style="color: black;"></div>
     <table>
         <tr>
-            <th>제품명</th>
+            <th>상품명</th>
             <th colspan="2">수량</th>
+            <th>가격</th>
             <th>결제 금액</th>
             <th></th>
             <th></th>
@@ -108,20 +109,23 @@
             </form>
 
             <td id="cost" th:text="${cart.cost}"></td>
+            <td id="total" th:text="${cart.cost}"></td>
             <td>
-                <button th:onclick="location.href=[[@{/order/create(quantity=${cart.quantity}, productId=${cart.product.productId})}]]">구매하기</button>
+                <button th:onclick="location.href=[[@{/order/create(quantity=${cart.quantity}, productId=${cart.product.productId})}]]"
+                style="color: gray;">구매하기</button>
             </td>
             <td>
-                <button th:onclick="location.href=[[@{/cart/delete(cartId=${cart.cartId})}]]">삭제 </button>
+                <button th:onclick="location.href=[[@{/cart/delete(cartId=${cart.cartId})}]]"
+                style="color: gray;">삭제 </button>
             </td>
             <!-- 	<td></td>
                                     <td></td> -->
         </tr>
 
         <tr style="border-bottom: 1px solid white;">
-            <td colspan="6" style="border-bottom: 1px solid white;">
+            <td colspan="7" style="border-bottom: 1px solid white;">
                 <button th:onclick="location.href=[[@{/order/create/all(cateName=${cate.cateName})}]]"
-                        style="float: right; border: 1px solid black; padding: 10px; border-radius: 10px;">전체 구매하기 </button>
+                        style="float: center; border: 1px solid black; margin-top: 20px; padding: 10px; border-radius: 10px;">전체 구매하기 </button>
             </td>
         </tr>
     </table>
