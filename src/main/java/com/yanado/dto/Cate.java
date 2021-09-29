@@ -23,9 +23,9 @@ import lombok.Setter;
 @Setter
 @Table(name = "FCATEGORY")
 @NamedQueries({ @NamedQuery(name = "getCategoryByCateId", query = "SELECT c FROM Cate c WHERE c.cateId=:id"),
-
 		@NamedQuery(name = "getCategoryBySupplierId", query = "SELECT c FROM Cate c WHERE c.supplierId=:id"),
-
+		@NamedQuery(name = "getCategoryName", query = "SELECT c.cateName FROM Cate c"),
+		@NamedQuery(name = "getCategory", query = "SELECT c FROM Cate c"),
 		@NamedQuery(name = "getCategoryByCateName", query = "SELECT c FROM Cate c WHERE c.cateName=:name") })
 public class Cate implements Serializable {
 

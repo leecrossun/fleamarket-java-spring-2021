@@ -145,23 +145,131 @@ keyframes loader-scale { 0% {
 }
 
 50
+
+
+
+
+
+
+
+
 %
 {
 opacity
+
+
+
+
+
+
+
+
 :
-1;
+
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+;
 }
 100
+
+
+
+
+
+
+
+
 %
 {
 transform
+
+
+
+
+
+
+
+
 :
-scale(
+
+
+
+
+
+
+
+
+scale
+
+
+
+
+
+
+(
+
+
+
+
+
+
+
+
 1
-);
+
+
+
+
+
+
+
+
+)
+
+
+
+
+
+
+;
 opacity
+
+
+
+
+
+
+
+
 :
-0;
+
+
+
+
+
+
+
+
+0
+
+
+
+
+
+
+;
 }
 }
 
@@ -378,13 +486,13 @@ opacity
 }
 
 /*---------------------------------------------*/
- .sub-menu {
+.sub-menu {
 	list-style-type: none;
 	position: absolute;
 	top: 0;
 	left: 100%;
 	min-width: 500px;
-	max-width: auto;
+	max-width: 800px;
 	background-color: #fff;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
@@ -401,14 +509,17 @@ opacity
 }
 
 .sub-menu li {
-	float : left;
+	float: left;
 	text-align: center;
-/* 	position: relative;
- */	background-color: transparent;
+	position: relative;
+	background-color: transparent;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
 	-o-transition: all 0.4s;
 	-moz-transition: all 0.4s;
+	border: 1px solid lightgrey;
+	width: 120px;
+	font-weight: bolder;
 }
 
 .main-menu>li>.sub-menu {
@@ -447,7 +558,7 @@ opacity
 }
 
 .sub-menu li:hover {
-	background-color: transparent;
+	background-color: lightgrey;
 }
 
 .sub-menu>li:hover>a {
@@ -1696,7 +1807,7 @@ button.mfp-close {
 
 /*---------------------------------------------*/
 .filter-col1 {
-	width: 27%;
+	width: 20%;
 }
 
 .filter-col2 {

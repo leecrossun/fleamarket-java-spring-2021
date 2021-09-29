@@ -49,7 +49,12 @@
 <link rel="stylesheet" type="text/css" href="../../static/css/main.css">
 <!--===============================================================================================-->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-
+<style>
+a:hover {
+	text-decoration: underline;
+	text-underline-position: under;
+}
+</style>
 </head>
 <body class="animsition">
 	<div th:replace="/menu :: header"></div>
@@ -67,10 +72,12 @@
 					</div>
 
 				</div>
-								
-				<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"  sec:authorize="hasAnyRole('ROLE_ADMIN')" >
 
-					
+				<div
+					class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
+					sec:authorize="hasAnyRole('ROLE_ADMIN')">
+
+
 					<a th:href="@{/shopping/create}" style="color: black">Create</a>
 				</div>
 
@@ -78,58 +85,188 @@
 				<!-- Filter -->
 				<div class="dis-none panel-filter w-full p-t-10">
 					<div
-						class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm" align="center">
+						class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm"
+						align="center">
 						
-						<div class="filter-col1 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15"><a>동아리 A</a></div>
+						<div class="filter-col1 p-r-15 p-b-27" th:each="cate, index : ${session.cateList}">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${cate.cateId})}" th:text="${cate.cateName}">
+								</a>
+							</div>
 						</div>
-						
-						<div class="filter-col1 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 B</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 C</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 D</div>
-						</div>
-						
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 E</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 F</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 G</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 H</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 J</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 X</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 Y</div>
-						</div>
-						
-						<div class="filter-col2 p-r-15 p-b-27">
-							<div class="mtext-102 cl2 p-b-15">동아리 Z</div>
-						</div>
-						
 
+					<!-- 	<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'Aquarius'})}">Aquarius
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'Bevu'})}">Bevu
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'DIDIArtist'})}">DIDIArtist
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'Mof'})}">M
+									of</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'MBTU'})}">MBTU
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'PUJA사진관'})}">PUJA
+									사진관</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'기미포스터'})}">기미포스터</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'나링샵'})}">나링샵
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'나인마인'})}">나인마인
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'냥이네'})}">냥이네
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'도담도담'})}">도담도담
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'도롱이네'})}">도롱이네</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'두둡공방'})}">두둡공방
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'라온언니'})}">라온언니
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'러빙하트'})}">러빙하트
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'리나가든'})}">리나가든
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'메루메루'})}">메루메루
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'묘살이길'})}">묘살이길
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'민문'})}">민문 </a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'바나나스탠스'})}">바나나
+									스탠스 </a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'솜집사'})}">솜집사
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'슬로우온'})}">슬로우온
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'초가'})}">초가 </a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'키치블링'})}">키치블링
+								</a>
+							</div>
+						</div>
+						<div class="filter-col1 p-r-15 p-b-27">
+							<div class="mtext-102 cl2 p-b-15">
+								<a style="color: black;"
+									th:href="@{/shopping/view/category(category=${'키치킹'})}">키치킹
+								</a>
+							</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
@@ -142,7 +279,8 @@
 					<div class="block2">
 						<div class="block2-pic hov-img0">
 							<img src="../../static/images/product-01.jpg" alt="IMG-PRODUCT">
-								<!-- th:src="@{../{img}(img=${shopping.imageList.image})}" --> <a
+							<!-- th:src="@{../{img}(img=${shopping.imageList.image})}" -->
+							<a
 								th:href="@{/shopping/view/detail(shoppingId=${shopping.productId})}"
 								class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 								Quick View </a>

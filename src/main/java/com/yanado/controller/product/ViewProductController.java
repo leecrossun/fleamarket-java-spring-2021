@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yanado.controller.user.UserSessionUtils;
+import com.yanado.dao.CateDAO;
 import com.yanado.dao.ProductDAO;
 import com.yanado.dto.Product;
 
@@ -39,7 +40,6 @@ public class ViewProductController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shopping/shoppingList");
 		mav.addObject("shoppingList", shopping);
-
 		return mav;
 
 	}
