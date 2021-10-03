@@ -88,6 +88,7 @@
 
 				<!-- Tab panes -->
 				<div class="tab-content p-t-43" align='center'>
+					<p style="font-size: medium;">📢 모든 서비스는 로그인 후 이용 가능합니다</p>
 				<p th:text="${#vars['loginFailMsg']}"></p>
 					<form th:action="@{/user/loginProcess}" method="post">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
