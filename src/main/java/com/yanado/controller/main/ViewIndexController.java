@@ -19,7 +19,7 @@ public class ViewIndexController {
 	@Autowired
 	private CateDAO cateDAO;
 
-	@RequestMapping("/")
+	@RequestMapping(value={"/", "/home"})
 	public String home(Model model, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
