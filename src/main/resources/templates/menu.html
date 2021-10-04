@@ -107,12 +107,12 @@ td {
 							<a th:href="@{/cart/view}" style="color: black">Cart</a>
 						</div>
 
-						<div th:if="${isCertified != 'Y'}"
-							sec:authorize="isAuthenticated() and hasAnyRole('ROLE_USER')"
-							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"
-							style="margin: 10px;">
-							<a th:href="@{/user/email/view}" style="color: black">이메일인증</a>
-						</div>
+<!--						<div th:if="${isCertified != 'Y'}"-->
+<!--							sec:authorize="isAuthenticated() and hasAnyRole('ROLE_USER')"-->
+<!--							class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4"-->
+<!--							style="margin: 10px;">-->
+<!--							<a th:href="@{/user/email/view}" style="color: black">이메일인증</a>-->
+<!--						</div>-->
 					</div>
 				</nav>
 			</div>

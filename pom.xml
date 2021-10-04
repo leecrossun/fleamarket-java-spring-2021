@@ -157,7 +157,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${artifactId}</finalName>
+		<finalName>dongdukfest</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
