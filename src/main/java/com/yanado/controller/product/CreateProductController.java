@@ -79,7 +79,8 @@ public class CreateProductController {
 		// 다중 이미지 처리
 
 		//String basePath = "src/main/resources/static/thumbnail";
-		String basePath = "/static/thumbnail";
+		String defaultPath = request.getSession().getServletContext().getRealPath("/");
+		String basePath = defaultPath + "/static/thumbnail";
 		File folder = new File(basePath);
 
 		if (!folder.exists()) {
