@@ -82,9 +82,8 @@ public class Product implements Serializable {
 	@Column(name = "REGDATE")
 	Date regDate;
 
-	@Transient
-	@OneToMany(mappedBy = "product")
-	List<Image> imageList;
+	@Column(name = "image")
+	String image;
 
 
 	/*

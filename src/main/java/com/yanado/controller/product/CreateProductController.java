@@ -23,7 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yanado.dao.CateDAO;import com.yanado.dto.Cate;
+import com.yanado.dao.CateDAO;
+import com.yanado.dto.Cate;
 import com.yanado.dto.Product;
 import com.yanado.service.ProductService;
 
@@ -40,7 +41,7 @@ public class CreateProductController {
 
 	@ModelAttribute("shopping")
 	public Product formBacking(HttpServletRequest request) {
-	
+
 		Product product = new Product();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userId = authentication.getName();
@@ -50,12 +51,13 @@ public class CreateProductController {
 		// String userId = "admin";
 		product.setSupplierId(userId);
 		product.setCate(cate);
+		product.setImage(null);
 		return product;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView form() {
-	
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("shopping/form");
 		mav.addObject("formtype", "create");
@@ -75,31 +77,36 @@ public class CreateProductController {
 		shopping.setContent(s);
 
 		// 다중 이미지 처리
-		/*
-		 * String basePath = "src/main/resources/static/productImage"; File folder = new
-		 * File(basePath);
-		 * 
-		 * if (!folder.exists()) { try { folder.mkdir(); // 폴더 생성합니다.
-		 * 
-		 * } catch (Exception e) { e.getStackTrace(); } }
-		 * 
-		 * String filePath = folder.getAbsolutePath() + "\\" +
-		 * file.getOriginalFilename(); System.out.println(filePath); File dest = new
-		 * File(filePath); try { file.transferTo(dest); System.out.println("파일저장"); }
-		 * catch (IllegalStateException | IOException e) {
-		 * System.out.println(e.getMessage()); }
-		 */
 
-		service.createProduct(shopping, null);
+		//String basePath = "src/main/resources/static/thumbnail";
+		String basePath = "/test/WEB-INF/classes/static/thumbnail";
+		File folder = new File(basePath);
 
-		/*
-		 * Product product = shopping.getProduct();
-		 * product.setImage("../../static/productImage/" + file.getOriginalFilename());
-		 * 
-		 * shopping.setProduct(product);
-		 * 
-		 * service.createProduct(shopping);
-		 */
+		if (!folder.exists()) {
+			try {
+				folder.mkdir(); // 폴더 생성합니다.
+
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
+		}
+		
+		System.out.println("folder : " + folder.getAbsolutePath());
+
+		String filePath = folder.getAbsolutePath() + "\\" + file.getOriginalFilename();
+		System.out.println(filePath);
+		File dest = new File(filePath);
+		try {
+			file.transferTo(dest);
+			System.out.println("파일저장");
+		} catch (IllegalStateException | IOException e) {
+			System.out.println(e.getMessage());
+		}
+
+		shopping.setImage("../../static/thumbnail/" + file.getOriginalFilename());
+
+		service.createProduct(shopping);
+
 		status.setComplete();
 
 		red.addAttribute("shoppingId", shopping.getProductId());

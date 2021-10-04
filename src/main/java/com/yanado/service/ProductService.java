@@ -16,12 +16,12 @@ public class ProductService {
 	@Autowired
 	private ProductDAO productDAO;
 	
-	public void createProduct(Product product, List<Image> image)
+	public void createProduct(Product product)
 	{
 		
 		product.setRegDate(new Date());
 		
-		productDAO.createProduct(product, image);
+		productDAO.createProduct(product);
 	}
 	
 	public void updateProduct(Product product)
