@@ -18,7 +18,6 @@ import com.yanado.dao.UserDAO;
 import com.yanado.dto.User;
 
 @Controller
-@WebServlet("/user/checkId")
 public class UserIdCheckController {
 
 	private static final long serialVersionUID = 1L;
