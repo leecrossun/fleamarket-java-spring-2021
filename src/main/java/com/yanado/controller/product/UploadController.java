@@ -70,7 +70,7 @@ public class UploadController {
 
 			String dftFilePath = request.getSession().getServletContext().getRealPath("/");
 
-			String filePath = "/static/productImage" + File.separator;
+			String filePath =  dftFilePath + "/static/productImage" + File.separator;
 
 			System.out.println(filePath);
 
