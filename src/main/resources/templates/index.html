@@ -55,8 +55,8 @@
 	<section class="section-slide">
 		<div class="wrap-slick1">
 			<div class="slick1">
-			
-			
+
+
 				<div class="item-slick1"
 					style="background-image: url(../static/images/slide-01.jpg);">
 					<div class="container h-full">
@@ -128,9 +128,9 @@
 						</div>
 					</div>
 				</div>
-				
-				
-				
+
+
+
 			</div>
 		</div>
 	</section>
@@ -139,35 +139,42 @@
 
 	<!-- Product -->
 	<section class="bg0 p-t-23 p-b-140" style="margin-top: 100px;">
-		<div class="container"  style="border: 1.5px solid grey;padding: 50px;border-radius:3%;">
-			<div class="p-b-10" >
-				<div class="row isotope-grid" >
+		<div class="container">
+			<div class="p-b-10">
+				<div class="row isotope-grid">
 					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women"
 						th:each="cate, index : ${session.cateList}">
-						
-						<!-- -------------------------------------------------------------------------------------------------------------------- -->
-						
-						<div class="block2" style="text-align:center;">
 
-							<div class="block2-pic hov-img0" >
-								<img alt="IMG-PRODUCT" style="width: 300px; height: auto;" src="../static/productImage/aaa.jpg">
-								<a th:href="@{/shopping/view/category(category=${cate.cateId})}"
+						<!-- -------------------------------------------------------------------------------------------------------------------- -->
+
+						<div class="block2"
+							style="border: 1.5px solid lightgrey; padding: 50px; border-radius: 3%; text-align: center;">
+
+							<div class="block2-pic hov-img0">
+								<img alt="IMG-PRODUCT" style="width: 300px; height: auto;"
+									src="../static/productImage/aaa.jpg"> <a
+									th:href="@{/shopping/view/category(category=${cate.cateId})}"
 									class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
 									Quick View </a>
 							</div>
 
-							<div class="block2-txt flex-w flex-t p-t-14" style="text-align: center;margin:auto;">
-								<div class="block2-txt-child1 flex-col-l" style="text-align: center;margin: auto;">
-									<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6" style="font-weight:bolder; text-align:center; width: 300px;" 
-										th:text="${cate.cateName}"  th:href="@{/shopping/view/category(category=${cate.cateId})}"> </a>
+							<div class="block2-txt flex-w flex-t p-t-14">
+								
+									<a class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6"
+										style="font-weight: bolder; width: 300px;margin: auto;"
+										th:href="@{/shopping/view/category(category=${cate.cateId})}"> 
+										<th:block th:text="${cate.cateName}"></th:block> <br> <br>
+										<th:block th:text="'sns : ' + ${cate.sns}"></th:block> <br> <br>
+										<th:block th:text="'phone : ' + ${cate.phone}"></th:block>
+									</a>
 								</div>
-							</div>
+				
 
 						</div>
-						
+
 						<!-- -------------------------------------------------------------------------------------------------------------------- -->
-						
-					</div> 
+
+					</div>
 
 				</div>
 			</div>
