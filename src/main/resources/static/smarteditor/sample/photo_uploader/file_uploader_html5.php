@@ -30,9 +30,10 @@
 		if(file_put_contents($newPath, $file->content)) {
 			$sFileInfo .= "&bNewLine=true";
 			$sFileInfo .= "&sFileName=".$filename;
-			$sFileInfo .= "&sFileURL=/smarteditor/upload/".$file->name;
+			//$sFileInfo .= "&sFileURL=/smarteditor/upload/".$file->name;
+			$sFileInfo .= '&sFileURL=http://152.70.254.64:8080/static/smarteditor/upload'. urlencode(urlencode($name));
+			// $sFileInfo .= '&sFileURL=http://localhost:8080/static/smarteditor/upload'. urlencode(urlencode($name));
 		}
-		
 		echo $sFileInfo;
 	}
 ?>
