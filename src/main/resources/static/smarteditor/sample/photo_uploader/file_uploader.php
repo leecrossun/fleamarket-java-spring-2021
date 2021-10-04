@@ -1,7 +1,15 @@
 <?php
+
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Max-Age: 86400');
+header('Access-Control-Allow-Headers: x-requested-with');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+
 // default redirection
 $url = 'callback.html?callback_func=' . $_REQUEST["callback_func"];
 $bSuccessUpload = is_uploaded_file($_FILES['Filedata']['tmp_name']);
+
+
 
 // SUCCESSFUL
 if (bSuccessUpload) {
@@ -32,8 +40,8 @@ if (bSuccessUpload) {
         $url .= "&bNewLine=true";
         $url .= "&sFileName=" . urlencode(urlencode($name));
        // $url .= "&sFileURL=/smarteditor/upload/" . urlencode(urlencode($name));
-        $url .= '&sFileURL=http://152.70.254.64:8080/static/smarteditor/upload'. urlencode(urlencode($name));
-       // $url .= '&sFileURL=http://localhost:8080/static/smarteditor/upload'. urlencode(urlencode($name));
+       // $url .= '&sFileURL=http://152.70.254.64:8080/static/smarteditor/upload'. urlencode(urlencode($name));
+        $url .= '&sFileURL=http://localhost:8080/static/smarteditor/upload'. urlencode(urlencode($name));
         
     }
 } // FAILED
