@@ -491,8 +491,8 @@ opacity
 	position: absolute;
 	top: 0;
 	left: 100%;
-	min-width: 500px;
-	max-width: 800px;
+	min-width: 800px;
+	max-width: 1000px;
 	background-color: #fff;
 	transition: all 0.4s;
 	-webkit-transition: all 0.4s;
@@ -518,7 +518,7 @@ opacity
 	-o-transition: all 0.4s;
 	-moz-transition: all 0.4s;
 	border: 1px solid lightgrey;
-	width: 120px;
+	width: 150px;
 	font-weight: bolder;
 }
 
@@ -568,7 +568,7 @@ opacity
 
 @media ( max-width : 1300px) {
 	.main-menu>.respon-sub-menu .sub-menu {
-		right: 100%;
+		/* right: 100%; */
 		left: auto;
 	}
 	.main-menu>.respon-sub-menu>.sub-menu {
