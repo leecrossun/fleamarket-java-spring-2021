@@ -24,28 +24,12 @@ public class ProductDAO {
 	public EntityManager em;
 
 	@Transactional
-	public void createProduct(Product product, List<Image> images) throws DataAccessException {
-
-		if (images != null) {
-			for (int i = 0; i < images.size(); i++) {
-				Image image = images.get(i);
-				image.setProductId(product.getProductId());
-				em.persist(image);
-			}
-		}
-
-		System.out.println(product.getContent());
-
+	public void createProduct(Product product) throws DataAccessException {
 		em.persist(product);
 	}
 
 	@Transactional
 	public void updateProduct(Product product) throws DataAccessException {
-		List<Image> images = product.getImageList();
-
-		for (int i = 0; i < images.size(); i++) {
-			em.merge(images.get(i));
-		}
 
 		em.merge(product);
 	}
@@ -53,13 +37,6 @@ public class ProductDAO {
 	@Transactional
 	public void deleteProduct(String productId) throws DataAccessException {
 		Product product = em.find(Product.class, productId);
-		List<Image> images = product.getImageList();
-
-		if (images != null) {
-			for (Image i : images) {
-				em.remove(i);
-			}
-		}
 
 		em.remove(product);
 	}
